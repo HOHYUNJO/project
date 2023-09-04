@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/allCss.css}"/>
+  <link rel="stylesheet" th:href="@{/css/gameWriteForm.css}">
+  <link rel="stylesheet" th:href="@{/css/hamburger.css}" />
+  <link rel="icon" href="/img/realLogo.png">
+  <title>게임 수정</title>
+</head>
+
+<body>
+<div class="wrapper">
+  <div class="welcome">
+    <p th:text="${session.memberNick} + '님, Mini Game World에 오신 것을 환영합니다.🐱‍🐉'"></p>
+  </div>
+  <div class="header">
+    <nav role="navigation">
+      <div id="menuToggle">
+        <!-- 햄버거 모양 -->
+        <input type="checkbox" />
+        <div class="burger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul id="menu">
+          <a th:href="@{/main}">
+            <li>Home</li>
+          </a>
+          <a th:href="@{/boardList}">
+            <li>Community</li>
+          </a>
+          <a th:href="@{/myPage}">
+            <li>My Page</li>
+          </a>
+          <a th:href="@{/QnAPage}">
+            <li>Q&A</li>
+          </a>
+          <a th:href="@{/aboutUs}">
+            <li>About Us</li>
+          </a>
+        </ul>
+      </div>
+    </nav>
+    <div class="logo">
+      <a th:href="@{/main}">
+        <img class="logoImg" th:src="@{img/logo.png}" alt="">
+      </a>
+    </div>
+    <div class="top-nav">
+      <ul class="top-nav-ul">
+        <li class="top-nav-li"><a th:href="@{/main}">Home</a></li>
+        <li class="top-nav-li"><a th:href="@{/boardList}">Community</a></li>
+        <li class="top-nav-li"><a th:href="@{/myPage}">My Page</a></li>
+        <li class="top-nav-li"><a th:href="@{/QnAPage}">Q&A</a></li>
+        <li class="top-nav-li"><a th:href="@{/aboutUs}">About Us</a></li>
+        <li class="drop-top-nav-li"><a href="#">Account</a>
+          <ul class="drop-ul">
+            <li><a th:href="@{/logout}" onclick="logout(event)">logout</a></li>
+            <li><a href="#"><img class="imgicon" th:src="@{img/설정.png}">설정</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="game-write">
+      <h1>게임 정보 수정</h1>
+      <form th:action="@{/updateGame}" method="post">
+        <div>
+          <input type="hidden" name="INDEX_NO" th:value="${gameVo.INDEX_NO}" />
+        </div>
+        <div>
+          <label for="gameID">게임 ID:</label>
+          <input type="text" id="gameID" name="gameID" th:value="${gameVo.gameID}" required />
+        </div>
+        <div>
+          <label for="gameTitle">게임 제목:</label>
+          <input type="text" id="gameTitle" name="gameTitle" th:value="${gameVo.gameTitle}" required />
+        </div>
+        <div>
+          <label for="gameDetail">게임 설명:</label>
+          <textarea id="gameDetail" name="gameDetail" th:utext="${gameVo.gameDetail}" required></textarea>
+        </div>
+        <div>
+          <label for="gameMaker">게임 개발자:</label>
+          <input type="text" id="gameMaker" name="gameMaker" th:value="${gameVo.gameMaker}" required />
+        </div>
+        <div>
+          <button type="submit" class="btn btn--stripe">수정</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

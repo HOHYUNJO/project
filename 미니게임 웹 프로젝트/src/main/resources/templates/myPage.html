@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="google" value="notranslate" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	<link rel="stylesheet" th:href="@{/css/allCss.css}">
+	<link rel="stylesheet" th:href="@{/css/myPage.css}">
+	<link rel="stylesheet" th:href="@{/css/hamburger.css}" />
+	<link rel="icon" href="/img/realLogo.png">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" type="text/css"
+		  th:href="@{https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css}" />
+	<title>My Page</title>
+</head>
+
+<body>
+<div class="wrapper">
+	<div class="welcome">
+		<p th:text="${session.memberNick} + '님, Mini Game World에 오신 것을 환영합니다.🐱‍🐉'"></p>
+	</div>
+	<div class="header">
+		<!-- 햄버거 버튼 도전 구역 시작 -->
+		<nav role="navigation">
+			<div id="menuToggle">
+				<!-- 햄버거 모양 -->
+				<input type="checkbox" />
+				<div class="burger">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+
+				<ul id="menu">
+					<a th:href="@{/main}">
+						<li>Home</li>
+					</a>
+					<a th:href="@{/boardList}">
+						<li>Community</li>
+					</a>
+					<a th:href="@{/myPage}">
+						<li>My Page</li>
+					</a>
+					<a th:href="@{/QnAPage}">
+						<li>Q&A</li>
+					</a>
+					<a th:href="@{/aboutUs}">
+						<li>About Us</li>
+					</a>
+				</ul>
+			</div>
+		</nav>
+		<!-- 햄버거 버튼 도전 구역 끝 -->
+
+		<div class="logo">
+			<a th:href="@{/main}"><img class="logoImg" th:src="@{/img/logo.png}" alt=""></a>
+		</div>
+		<div class="top-nav">
+			<ul class="top-nav-ul">
+				<li class="top-nav-li"><a th:href="@{/main}">Home</a></li>
+				<li class="top-nav-li"><a th:href="@{/boardList}">Community</a></li>
+				<li class="top-nav-li"><a th:href="@{/myPage}">My Page</a></li>
+				<li class="top-nav-li"><a th:href="@{/QnAPage}">Q&A</a></li>
+				<li class="top-nav-li"><a th:href="@{/aboutUs}">About Us</a></li>
+				<li class="drop-top-nav-li"><a href="#">Account</a>
+					<ul class="drop-ul">
+						<li><a th:href="@{/logout}" onclick="logout(event)">logout</a></li>
+						<li><a href="#"><img class="imgicon" th:src="@{/img/설정.png}">설정</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="container">
+		<ul class="tabs">
+			<li class="tab-link current" data-tab="tab-1">내 정보</li>
+			<li class="tab-link" data-tab="tab-2">내가 쓴 글 목록</li>
+		</ul>
+		<div id="tab-1" class="tab-content current">
+			<div class="profile">
+				<div class="profile-picture">
+					<p class="top-text">프로필 사진</p>
+					<div class="photo">
+						<img src="/img/커비.jpg" alt="">
+					</div>
+					<p class="bottom-text">닉네임: <span th:text="${authInfo.getMemberNick()}" /></p>
+				</div>
+				<div class="profile-info">
+					<p class="id">아이디: <span th:text="${authInfo.getMemberId()}" /></p>
+					<p class="name">이름: <span th:text="${authInfo.getMemberName()}" /></p>
+					<p class="email">이메일: <span th:text="${authInfo.getMemberEmail()}" /></p>
+					<button style="margin-right: 47.7px;" class="btn btn--stripe right"
+							onclick="openPasswordConfirmPopup()">수정 하러 가기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="tab-2" class="tab-content">
+		<table class="board-table">
+			<thead>
+			<tr>
+				<th scope="col" class="th-title">제목</th>
+				<th scope="col" class="th-date">등록일</th>
+			</tr>
+			</thead>
+			<tbody>
+			<!-- 게시물 목록을 반복문으로 출력 -->
+			<tr th:each="board : ${myBoards}">
+				<td> <a th:href="@{/boardDetail(board_idx=${board.board_idx})}"
+						th:text="${board.boardTitle}"></a></td>
+				<td th:text="${board.CREATED_AT}"></td>
+			</tr>
+			</tbody>
+		</table>
+		<!-- 페이징 버튼 표시 -->
+		<div class="pagination">
+			<ul>
+<!--				<li class="page-item" th:if="${pageNumber > 1}">-->
+<!--					<a class="page-link paging-btn" th:href="@{/myPage(page=${pageNumber - 1})}">-->
+<!--						<< </a>-->
+<!--				</li>-->
+
+				<th:block th:with="startPage=${((pageNumber - 1) / 5) * 5 + 1}">
+					<li class="page-item" th:if="${startPage > 1}">
+						<a class="page-link paging-btn" th:href="@{/myPage(page=${startPage - 1})}">
+							< </a>
+					</li>
+
+					<th:block
+							th:each="page : ${#numbers.sequence(startPage, (startPage + 4) < totalPages ? (startPage + 4) : totalPages)}">
+						<li class="page-item" th:class="${page == pageNumber} ? 'active' : ''">
+							<a class="page-link paging-btn" th:href="@{/myPage(page=${page})}"
+							   th:text="${page}"></a>
+						</li>
+					</th:block>
+
+					<li class="page-item" th:if="${(startPage + 4) < totalPages}">
+						<a class="page-link paging-btn" th:href="@{/myPage(page=${startPage + 5})}">></a>
+					</li>
+				</th:block>
+
+<!--				<li class="page-item" th:if="${pageNumber < totalPages}">-->
+<!--					<a class="page-link paging-btn" th:href="@{/myPage(page=${pageNumber + 1})}">>></a>-->
+<!--				</li>-->
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+<div class="footer">
+	<div class="footer-text">
+		<p>회사정보 <br>
+			상호 : 그린 컴퓨터 <br>
+			주소 : 경기도 수원시 <br>
+			개인정보관리 책임자 : 김그린 (Team2EmailService@gmail.com) <br>
+			사업자 등록번호 : 111-11-1111
+		</p>
+		<p>
+			회사소개 | 쇼핑가이드 | 개인정보보호정책 | 이용약관
+		</p>
+	</div>
+	<div class="footers">
+		<div class="footer-cs">
+			<p>
+				근무시간 : 월 ~ 금 AM 9:00 ~ PM 7:00 <br>
+				점심시간 : PM12 :00 ~ PM 1 : 00 <br>
+				고객센터 : AM 10: 00 ~ PM6 : 00
+			</p>
+		</div>
+		<div class="ours">
+			<p>모든 저작권은 2팀에게 있습니다. <br>
+				Copyright 2023. 2팀 <br>
+				All rights reserved.
+			</p>
+		</div>
+	</div>
+</div> <!-- footer 끝 -->
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	$(document).ready(function () {
+
+		$('ul.tabs li').click(function () {
+			var tab_id = $(this).attr('data-tab');
+
+			$('ul.tabs li').removeClass('current');
+			$('.tab-content').removeClass('current');
+
+			$(this).addClass('current');
+			$("#" + tab_id).addClass('current');
+		})
+
+	})
+
+	//수정하기 버튼 누르면 비밀번호 확인으로 바꿔서 주석처리
+	// function openMyPageUpdate() {
+	// 	window.location.href = "/myPageUpdateForm";
+	// }
+	// function openPasswordConfirmPopup() {
+	// 	$("<div>").dialog({
+	// 		title: "비밀번호 확인",
+	// 		modal: true,
+	// 		buttons: {
+	// 			"확인": function() {
+	// 				var password = $("#password").val();
+	// 				if (password !== "") {
+	// 					// 비밀번호 확인 요청 보내기
+	// 					$.ajax({
+	// 						url: "/confirmPassword",
+	// 						type: "POST",
+	// 						data: { password: password },
+	// 						success: function () {
+	// 							// 비밀번호 확인 성공 시 업데이트 폼으로 이동
+	// 							window.location.href = "/myPageUpdateForm";
+	// 						},
+	// 						error: function (xhr, status, error) {
+	// 							// 비밀번호 확인 실패 시 에러 메시지 표시
+	// 							var errorMessage = xhr.responseText || "비밀번호 확인에 실패했습니다";
+	// 							alert(errorMessage);
+	// 						}
+	// 					});
+	// 					$(this).dialog("close");
+	// 				}
+	// 			},
+	// 			"취소": function() {
+	// 				$(this).dialog("close");
+	// 			}
+	// 		},
+	// 		close: function() {
+	// 			$(this).dialog("destroy").remove();
+	// 		}
+	// 	}).append(
+	// 			$("<label>").text("비밀번호:"),
+	// 			$("<input>").attr("type", "password").attr("id", "password")
+	// 	);
+	// }
+	function openPasswordConfirmPopup() {
+		$("<div>").dialog({
+			title: "비밀번호 확인",
+			modal: true,
+			buttons: {
+				"확인": function () {
+					var password = $("#password").val();
+					if (password !== "") {
+						// 비밀번호 확인 요청 보내기
+						$.ajax({
+							url: "/confirmPassword",
+							type: "POST",
+							data: { password: password },
+							success: function () {
+								// 비밀번호 확인 성공 시 업데이트 폼으로 이동
+								window.location.href = "/myPageUpdateForm";
+							},
+							error: function (xhr) {
+								// 비밀번호 확인 실패 시 에러 메시지 표시
+								var errorMessage = xhr.responseText || "비밀번호 확인에 실패했습니다";
+								$("<div>").text(errorMessage).dialog({
+									title: "비밀번호 확인 실패",
+									modal: true,
+									buttons: {
+										"확인": function () {
+											$(this).dialog("close");
+										}
+									},
+									close: function () {
+										$(this).dialog("destroy").remove();
+									}
+								});
+							}
+						});
+						$(this).dialog("close");
+					}
+				},
+				"취소": function () {
+					$(this).dialog("close");
+				}
+			},
+			close: function () {
+				$(this).dialog("destroy").remove();
+			}
+		}).append(
+				$("<label>").text("비밀번호:"),
+				$("<input>").attr("type", "password").attr("id", "password")
+		);
+	}
+
+	//     로그아웃
+	function logout(event) {
+		event.preventDefault(); // 기본 동작 방지
+
+		const confirmed = confirm("로그아웃하시겠습니까?");
+		if (confirmed) {
+			// 서버로 로그아웃 요청을 보내는 Ajax 요청 등을 수행할 수 있습니다.
+			// 세션을 삭제하는 작업은 서버 측에서 처리되어야 합니다.
+
+			// 세션 삭제 후 로그인 페이지로 이동
+			window.location.href = "/logout";
+		}
+	}
+	$(document).ready(function () {
+		// 페이지 로드 시 탭 설정
+		var activeTab = sessionStorage.getItem('activeTab');
+		if (activeTab === null) {
+			activeTab = 'tab-1'; // 기본 탭 설정
+		}
+		$('ul.tabs li').removeClass('current');
+		$('.tab-content').removeClass('current');
+		$('ul.tabs li[data-tab="' + activeTab + '"]').addClass('current');
+		$('#' + activeTab).addClass('current');
+
+		// 탭 클릭 시 sessionStorage에 활성 탭 정보 저장
+		$('ul.tabs li').on('click', function () {
+			var tab_id = $(this).attr('data-tab');
+			sessionStorage.setItem('activeTab', tab_id);
+
+			$('ul.tabs li').removeClass('current');
+			$('.tab-content').removeClass('current');
+			$(this).addClass('current');
+			$("#" + tab_id).addClass('current');
+		});
+	});
+</script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>게임 정보 저장 폼</title>
+  <link rel="stylesheet" th:href="@{/css/allCss.css}" />
+  <link rel="stylesheet" th:href="@{/css/hamburger.css}" />
+  <link rel="stylesheet" th:href="@{/css/gameWriteForm.css}" />
+  <link rel="icon" href="/img/realLogo.png">
+  <style>
+
+  </style>
+</head>
+
+<body>
+<div class="wrapper">
+  <div class="welcome">
+    <p th:text="${session.memberNick} + '님, Mini Game World에 오신 것을 환영합니다.🐱‍🐉'"></p>
+  </div>
+  <div class="header">
+    <nav role="navigation">
+      <div id="menuToggle">
+        <!-- 햄버거 모양 -->
+        <input type="checkbox" />
+        <div class="burger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul id="menu">
+          <a th:href="@{/main}">
+            <li>Home</li>
+          </a>
+          <a th:href="@{/boardList}">
+            <li>Community</li>
+          </a>
+          <a th:href="@{/myPage}">
+            <li>My Page</li>
+          </a>
+          <a th:href="@{/QnAPage}">
+            <li>Q&A</li>
+          </a>
+          <a th:href="@{/aboutUs}">
+            <li>About Us</li>
+          </a>
+        </ul>
+      </div>
+    </nav>
+    <div class="logo">
+      <a th:href="@{/main}">
+        <img class="logoImg" th:src="@{img/logo.png}" alt="">
+      </a>
+    </div>
+    <div class="top-nav">
+      <ul class="top-nav-ul">
+        <li class="top-nav-li"><a th:href="@{/main}">Home</a></li>
+        <li class="top-nav-li"><a th:href="@{/boardList}">Community</a></li>
+        <li class="top-nav-li"><a th:href="@{/myPage}">My Page</a></li>
+        <li class="top-nav-li"><a th:href="@{/QnAPage}">Q&A</a></li>
+        <li class="top-nav-li"><a th:href="@{/aboutUs}">About Us</a></li>
+        <li class="drop-top-nav-li"><a href="#">Account</a>
+          <ul class="drop-ul">
+            <li><a th:href="@{/logout}" onclick="logout(event)">logout</a></li>
+            <li><a href="#"><img class="imgicon" th:src="@{img/설정.png}">설정</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="game-write">
+    <h1>게임 정보 저장</h1>
+      <form th:action="@{/saveGame}" method="post">
+        <div>
+          <label for="gameID">게임 아이디:</label>
+          <input type="text" id="gameID" name="gameID" required>
+        </div>
+        <div>
+          <label for="gameTitle">게임 제목:</label>
+          <input type="text" id="gameTitle" name="gameTitle" required>
+        </div>
+        <div>
+          <label for="gameMaker">게임 제작사:</label>
+          <input type="text" id="gameMaker" name="gameMaker" required>
+        </div>
+        <div>
+          <label for="gameDetail">게임 내용:</label>
+          <input type="text" id="gameDetail" name="gameDetail" required>
+        </div>
+        <div>
+          <button type="submit" class="btn btn--stripe">등록</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<!--  footer 시작-->
+  <div class="footer">
+    <div class="footer-text">
+      <p>회사정보 <br>
+        상호 : 그린 컴퓨터 <br>
+        주소 : 경기도 수원시 <br>
+        개인정보관리 책임자 : 김그린 (Team2EmailService@gmail.com) <br>
+        사업자 등록번호 : 111-11-1111
+      </p>
+      <p>
+        회사소개 | 쇼핑가이드 | 개인정보보호정책 | 이용약관
+      </p>
+    </div>
+    <div class="footers">
+      <div class="footer-cs">
+        <p>
+          근무시간 : 월 ~ 금 AM 9:00 ~ PM 7:00 <br>
+          점심시간 : PM12 :00 ~ PM 1 : 00 <br>
+          고객센터 : AM 10: 00 ~ PM6 : 00
+        </p>
+      </div>
+      <div class="ours">
+        <p>모든 저작권은 2팀에게 있습니다. <br>
+          Copyright 2023. 2팀 <br>
+          All rights reserved.
+        </p>
+      </div>
+    </div>
+  </div> <!-- footer 끝 -->
+</div>
+</body>
+</html>

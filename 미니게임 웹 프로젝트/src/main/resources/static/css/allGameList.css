@@ -1,0 +1,415 @@
+@import url(responsive_hamburger.css);
+@import url(responsive_menu_style.css);
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.header {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 60px;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #c4c3ca;
+  background-color: #1f2029;
+  overflow-x: hidden;
+}
+
+a {
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.section {
+  position: relative;
+  width: 60%;
+  display: block;
+  padding: 60px 0;
+  margin: 0 auto;
+  /* border: 1px solid red; */
+  margin-top: 40px;
+}
+
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+
+[type="radio"]:checked+label,
+[type="radio"]:not(:checked)+label {
+  position: relative;
+  padding-left: 12px;
+  padding-right: 12px;
+  cursor: pointer;
+  line-height: 30px;
+  font-size: 13px;
+  font: inherit;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  color: #fff;
+  margin-right: 10px;
+  margin-left: 10px;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+[type="radio"]:checked:hover+label:before,
+[type="radio"]:not(:checked):hover+label:before,
+[type="radio"]:checked:hover+label:after,
+[type="radio"]:not(:checked):hover+label:after {
+  opacity: 0.7;
+}
+
+[type="radio"]:checked+label:before,
+[type="radio"]:not(:checked)+label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 30px;
+  border-radius: 3px;
+  background-color: transparent;
+  z-index: -1;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+[type="radio"]:checked+label:after,
+[type="radio"]:not(:checked)+label:after {
+  content: '';
+  border-radius: 2px;
+  height: 3px;
+  background-color: #e74c3c;
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  z-index: -1;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+[type="radio"]:not(:checked)+label:after {
+  opacity: 0;
+  width: 0;
+}
+
+[type="radio"]:checked+label:after {
+  opacity: 1;
+  width: calc(100% - 24px);
+}
+/* 박스 스타일 */
+/* 게임 박스 스타일 */
+.col-auto.box.sunflower {
+  position: relative;
+  width: 300px; /* 박스 너비 조정 */
+  height: 250px; /* 박스 높이 조정 */
+  margin: 20px;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 6px 7px 28px 0 rgba(16, 16, 16, 0.7);
+  -webkit-transition: transform 0.3s ease; /* 호버 시 트랜스폼 설정 */
+  transition: transform 0.3s ease; /* 호버 시 트랜스폼 설정 */
+}
+
+.col-auto.box.sunflower:hover {
+  transform: scale(1.05); /* 호버 시 살짝 커지는 효과 설정 */
+}
+
+.col-auto.box.sunflower img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지가 박스에 꽉 차도록 설정 */
+  border-radius: 30px;
+}
+
+/* 텍스트 스타일 */
+.col-auto.box::before {
+  content: attr(data-game-id); /* Display the game ID */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center vertically and horizontally */
+  font-size: 20px;
+  font: inherit;
+  color: white;
+  text-align: center;
+  white-space: pre-wrap;
+  width: 100%; /* Set width to 100% */
+  height: 100%; /* Set height to 100% */
+  opacity: 0;
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: opacity 0.3s ease;
+  cursor: pointer; /* Add pointer cursor */
+}
+
+/* 호버 시 텍스트 보이기 */
+.col-auto.box.sunflower:hover::before {
+  opacity: 1;
+  visibility: visible;
+  /* Adjust top and left values to center the text within the box */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Adjust transform to center the text */
+  background-color: rgba(0, 0, 0, 0.7);
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+  font-weight: 500;
+}
+/* btn css */
+@-webkit-keyframes stripe-slide {
+  0% {
+    background-position: 0% 0;
+  }
+
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+@keyframes stripe-slide {
+  0% {
+    background-position: 0% 0;
+  }
+
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.btn {
+  width: 140px;
+  height: 50px;
+  overflow: visible;
+  background: transparent;
+  font: inherit;
+  line-height: normal;
+  cursor: pointer;
+  /* -moz-user-select: text; */
+  display: block;
+  text-decoration: none;
+  padding: 10px 28px 16px;
+  background-color: #fff;
+  color: #666;
+  border: 2px solid #666;
+  border-radius: 6px;
+  transition: all 0.5s ease;
+  position: relative; /* Use position: absolute */
+  top: 20px; /* Adjust the top position as needed */
+  right: -80%; /* Adjust the right position as needed */
+}
+
+.btn:-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+.btn--stripe {
+  overflow: hidden;
+  position: relative;
+}
+
+.btn--stripe:after {
+  content: "";
+  display: block;
+  height: 7px;
+  width: 100%;
+  background-image: repeating-linear-gradient(45deg, #666, #666 1px, transparent 2px, transparent 5px);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-top: 1px solid #666;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-size: 7px 7px;
+}
+
+.btn--stripe:hover {
+  background-color: #666;
+  color: #fff;
+  border-color: #000;
+}
+
+.btn--stripe:hover:after {
+  background-image: repeating-linear-gradient(45deg, #fff, #fff 1px, transparent 2px, transparent 5px);
+  border-top: 1px solid #000;
+  -webkit-animation: stripe-slide 12s infinite linear forwards;
+  animation: stripe-slide 12s infinite linear forwards;
+}
+
+/* #Colors
+================================================== */
+
+.checkbox-all:checked+label:after,
+.checkbox-all:not(:checked)+label:after {
+  background-color: #000;
+}
+
+.checkbox-alizarin:checked+label:after,
+.checkbox-alizarin:not(:checked)+label:after {
+  background-color: #e74c3c;
+}
+
+.checkbox-wisteria:checked+label:after,
+.checkbox-wisteria:not(:checked)+label:after {
+  background-color: #8e44ad;
+}
+
+.checkbox-emerland:checked+label:after,
+.checkbox-emerland:not(:checked)+label:after {
+  background-color: #2ecc71;
+}
+
+.checkbox-belizehole:checked+label:after,
+.checkbox-belizehole:not(:checked)+label:after {
+  background-color: #2980b9;
+}
+
+.checkbox-sunflower:checked+label:after,
+.checkbox-sunflower:not(:checked)+label:after {
+  background-color: #f1c40f;
+}
+
+.box {
+  border-radius: 4px;
+  box-shadow: 6px 7px 28px 0 rgba(16, 16, 16, 0.7);
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.3s linear;
+  display: inline-block;
+  /* width: 205px; */
+}
+
+.box.alizarin {
+  border: 3px solid #e74c3c;
+}
+
+.box.wisteria {
+  border: 3px solid #8e44ad;
+}
+
+.box.emerland {
+  border: 3px solid #2ecc71;
+}
+
+.box.belizehole {
+  border: 3px solid #2980b9;
+}
+
+.box.sunflower {
+  border: 3px solid #f1c40f;
+}
+
+.box.alizarin,
+.box.wisteria,
+.box.emerland,
+.box.belizehole,
+.box.sunflower {
+  opacity: 0;
+  transform: scale(0);
+  padding: 0;
+  margin: 0;
+  visibility: hidden;
+  border-width: 0;
+}
+
+.checkbox-all:checked~.box.alizarin,
+.checkbox-all:checked~.box.wisteria,
+.checkbox-all:checked~.box.emerland,
+.checkbox-all:checked~.box.belizehole,
+.checkbox-all:checked~.box.sunflower,
+.checkbox-alizarin:checked~.box.alizarin,
+.checkbox-wisteria:checked~.box.wisteria,
+.checkbox-emerland:checked~.box.emerland,
+.checkbox-belizehole:checked~.box.belizehole,
+.checkbox-sunflower:checked~.box.sunflower {
+  opacity: 1;
+  min-height: 140px;
+  min-width: calc(22% - 28px);
+  padding: 0 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 20px;
+  visibility: visible;
+  transform: scale(1);
+  border-width: 3px;
+}
+
+/* 미디어쿼리 */
+@media (max-width: 1199px) {
+
+  .checkbox-all:checked~.box.alizarin,
+  .checkbox-all:checked~.box.wisteria,
+  .checkbox-all:checked~.box.emerland,
+  .checkbox-all:checked~.box.belizehole,
+  .checkbox-all:checked~.box.sunflower,
+  .checkbox-alizarin:checked~.box.alizarin,
+  .checkbox-wisteria:checked~.box.wisteria,
+  .checkbox-emerland:checked~.box.emerland,
+  .checkbox-belizehole:checked~.box.belizehole,
+  .checkbox-sunflower:checked~.box.sunflower {
+    min-width: calc(32% - 28px);
+  }
+}
+
+@media (max-width: 991px) {
+
+  .checkbox-all:checked~.box.alizarin,
+  .checkbox-all:checked~.box.wisteria,
+  .checkbox-all:checked~.box.emerland,
+  .checkbox-all:checked~.box.belizehole,
+  .checkbox-all:checked~.box.sunflower,
+  .checkbox-alizarin:checked~.box.alizarin,
+  .checkbox-wisteria:checked~.box.wisteria,
+  .checkbox-emerland:checked~.box.emerland,
+  .checkbox-belizehole:checked~.box.belizehole,
+  .checkbox-sunflower:checked~.box.sunflower {
+    min-width: calc(50% - 28px);
+  }
+}
+
+@media (max-width: 575px) {
+
+  .checkbox-all:checked~.box.alizarin,
+  .checkbox-all:checked~.box.wisteria,
+  .checkbox-all:checked~.box.emerland,
+  .checkbox-all:checked~.box.belizehole,
+  .checkbox-all:checked~.box.sunflower,
+  .checkbox-alizarin:checked~.box.alizarin,
+  .checkbox-wisteria:checked~.box.wisteria,
+  .checkbox-emerland:checked~.box.emerland,
+  .checkbox-belizehole:checked~.box.belizehole,
+  .checkbox-sunflower:checked~.box.sunflower {
+    min-width: calc(100% - 28px);
+  }
+}
+
+
+
+@media (max-width: 1200px) {
+  .logo {
+    top: 20px;
+    right: 20px;
+  }
+
+}

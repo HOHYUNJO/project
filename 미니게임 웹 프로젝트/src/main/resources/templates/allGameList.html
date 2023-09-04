@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="google" value="notranslate" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	<link rel="stylesheet" th:href="@{/css/allCss.css}" />
+	<link rel="stylesheet" th:href="@{/css/allGameList.css}" />
+	<link rel="stylesheet" th:href="@{/css/hamburger.css}" />
+	<link rel="stylesheet" type="text/css"
+		  th:href="@{https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css}" />
+	<link rel="icon" href="/img/realLogo.png">
+
+	<title>All Game</title>
+	<style>
+		.header {
+			top: 60px;
+		}
+		body {
+			font-family: 'GmarketSansMedium', sans-serif;
+		}
+
+	</style>
+</head>
+
+<body>
+<div class="wrapper">
+	<div class="welcome">
+		<p th:text="${session.memberNick} + '님, Mini Game World에 오신 것을 환영합니다.🐱‍🐉'"></p>
+	</div>
+	<div class="header">
+		<nav role="navigation">
+			<div id="menuToggle">
+				<!-- 햄버거 모양 -->
+				<input type="checkbox" />
+				<div class="burger">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+
+				<ul id="menu">
+					<a th:href="@{/main}">
+						<li>Home</li>
+					</a>
+					<a th:href="@{/boardList}">
+						<li>Community</li>
+					</a>
+					<a th:href="@{/myPage}">
+						<li>My Page</li>
+					</a>
+					<a th:href="@{/QnAPage}">
+						<li>Q&A</li>
+					</a>
+					<a th:href="@{/aboutUs}">
+						<li>About Us</li>
+					</a>
+				</ul>
+			</div>
+		</nav>
+		<div class="logo">
+			<a th:href="@{/main}"><img class="logoImg" th:src="@{/img/logo.png}" alt=""></a>
+		</div>
+		<div class="top-nav">
+			<ul class="top-nav-ul">
+				<li class="top-nav-li"><a th:href="@{/main}">Home</a></li>
+				<li class="top-nav-li"><a th:href="@{/boardList}">Community</a></li>
+				<li class="top-nav-li"><a th:href="@{/myPage}">My Page</a></li>
+				<li class="top-nav-li"><a th:href="@{/QnAPage}">Q&A</a></li>
+				<li class="top-nav-li"><a th:href="@{/aboutUs}">About Us</a></li>
+				<li class="drop-top-nav-li"><a href="#">Account</a>
+					<ul class="drop-ul">
+						<li><a th:href="@{/logout}" onclick="logout(event)">logout</a></li>
+						<li><a href="#"><img class="imgicon" src="/img/설정.png">설정</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div> <!-- header 끝 -->
+
+	<div class="section">
+		<h1 style="text-align: center;">전체 게임 리스트</h1>
+		<!-- 게임 등록 버튼 -->
+		<div class="admin-btn" th:if="${session.authInfo.getMemberId() == 'admin'}">
+			<button type="button" onclick="location.href='/gameWriteForm'" class="btn btn--stripe">게임 등록</button>
+		</div>
+		<div class="container">
+			<div class="row justify-content-center">
+				<input class="checkbox-all" type="radio" id="color" name="color" checked />
+				<label for="color">All</label>
+				<input class="checkbox-sunflower" type="radio" name="color" id="color-1" />
+				<label for="color-1">PC</label>
+				<input class="checkbox-belizehole" type="radio" name="color" id="color-2" />
+				<label for="color-2">Console</label>
+				<input class="checkbox-emerland" type="radio" name="color" id="color-3" />
+				<label for="color-3">Mobile</label>
+
+				<div class="w-100 p-0 pt-2"></div>
+
+<!--				<div class="col-auto box sunflower"></div>-->
+<!--				<div class="col-auto box belizehole"></div>-->
+<!--				<div class="col-auto box emerland"></div>-->
+				<!-- ... (existing boxes content) ... -->
+
+				<!-- 여기서부터 반복문으로 게임 정보를 표시합니다 -->
+				<div th:each="gameVo : ${gameList}" class="col-auto box sunflower" th:data-game-id="${gameVo.getGameID()}" th:onclick="'goToGameDetail(' + ${gameVo.INDEX_NO} + ')'">
+					<img th:src="@{/img/__${gameVo.imageFileName}__}" alt="">
+				</div>
+				<!-- 반복문 종료 -->
+			</div>
+		</div>
+	</div>
+</div> <!-- wrapper의 끝 -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	// 로그아웃
+	function logout(event) {
+		event.preventDefault(); // 기본 동작 방지
+
+		const confirmed = confirm("로그아웃하시겠습니까?");
+		if (confirmed) {
+			// 서버로 로그아웃 요청을 보내는 Ajax 요청 등을 수행할 수 있습니다.
+			// 세션을 삭제하는 작업은 서버 측에서 처리되어야 합니다.
+
+			// 세션 삭제 후 로그인 페이지로 이동
+			window.location.href = "/logout";
+		}
+	}
+	function goToGameDetail(INDEX_NO) {
+		window.location.href = "/gameDetail?INDEX_NO=" + INDEX_NO;
+	}
+</script>
+</body>
+
+</html>

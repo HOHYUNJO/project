@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Something in Space (JS Game)</title>
+
+</head>
+<style type="text/css">
+  body {
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+  padding:0;
+  margin:0;
+  perspective:33vw;
+  background:#111;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+#score {
+  font-family:monospace;
+  color:white;
+  padding:10px;
+  text-align:center;
+  font-size:18px;
+}
+#lane {
+  width:70vw;
+  max-width:900px;
+  height:150vh;
+  transform:translateX(-50%) rotateX(45deg);
+  transform-origin:bottom center;
+  position:absolute;
+  left:50%;
+  bottom:0;
+  transition:2s;
+/*   background:#222;   */
+}
+
+#ship {
+  width:20%;
+  height:5vh;
+  position:absolute;
+  bottom:5%;
+  left:40%;
+  text-align:center;
+}
+.ship{
+  width:100%;
+  height:200%;
+  background:linear-gradient(to bottom, white 15%, dodgerblue 15%);
+  position:absolute;
+  left:0;
+  bottom:0;
+  clip-path:polygon(50% 0%, 75% 75%, 97% 95%, 100% 70%, 100% 100%, 0% 100%, 0% 70%, 3% 95%, 25% 75%);
+}
+.ship:before {
+  content:'';
+  width:33%;
+  height:50%;
+  background:#fff;
+  position:absolute;
+  left:50%;
+  bottom:12px;
+  transform:translateX(-50%);
+  border-radius:5px;
+  clip-path:polygon(50% 0%, 100% 100%, 0% 100%);
+  opacity:.75;
+  
+}
+.barrel {
+  animation:roll .25s linear forwards;
+}
+@keyframes roll {
+  100% { transform:rotateZ(360deg); }
+}
+.rocket {
+  width:50px;
+  height:50px;
+  background:lightblue;
+  box-shadow:inset 0 -3px 0px 3px dodgerblue;
+  border-radius:50%;
+  position:absolute;
+  bottom:-45%;
+  left:50%;
+  transform:translatex(-50%) rotateX(-45deg);
+}
+.rocket:after{
+  width:200%;
+  height:250px;
+  content:'';
+  position:absolute;
+  left:-50%;
+  background:linear-gradient(to bottom,skyblue 50%, transparent 50%);
+  background-size:100% 5%;
+  opacity:.25;
+  border-radius:25px 25px 0 0;
+  clip-path:polygon(0% 100%, 25% 0%, 75% 0%, 100% 100%);
+  animation:rocket 2s linear infinite;
+}
+@keyframes rocket {
+  100% { background-position:0 100% }
+}
+
+#ball {
+  width:75px;
+  height:75px;
+  position:absolute;
+  animation:roll 2s linear forwards;
+  transform:rotateX(-45deg);
+/*   clip-path:polygon(50% 0%, 100% 100%, 0% 100%); */
+  transform-origin:center center;
+}
+
+@keyframes roll {
+  0% { top:-50px; }
+  100% { top:101%; transform:rotateX(-45deg) rotateZ(720deg)}
+}
+
+#menu {
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);  
+  text-align:center;
+  color:white;
+  font-family:monospace;
+  font-size:36px;
+  transition:2s;
+  user-select:none;
+}
+
+#menu span {
+  font-size:150px;
+  line-height:110px;
+  font-weight:900;
+  text-shadow:3px 3px black, 3px -3px black, 6px 6px red,9px 9px yellow, 12px 12px lime,15px 15px cyan, 18px 18px magenta;
+}
+
+#menu .stuff {
+  font-size:18px;
+}
+
+#menu .swapColor {
+  font-size:12px;
+}
+
+#menu input {
+  padding:10px 15px;
+  border-radius:10px 0px 10px 0px;
+  outline:0;
+  font-family:monospace;
+}
+
+.dead .ship {
+  transform-origin:center center;
+  background:red;
+  animation:dead 2s linear forwards;
+}
+
+@keyframes dead {
+  100% { transform:scale(0) rotateZ(2160deg); opacity:0; }
+}
+
+.dead .rocket {
+  opacity:0;
+}
+
+/* GATES CSS */
+#barBar {
+  width:100%;
+  height:20px;
+  position:absolute;
+  top:0;
+  left:0;
+  animation:bar 2s linear forwards;
+  background:red;
+  z-index:-1;
+  
+}
+@keyframes bar {
+  100% { top:101%; }
+}
+
+.bar {
+  width:33%;
+  height:150%;
+  background:#111;
+  position:absolute;
+  top:-25%;
+}
+
+/* CANYON CSS */
+
+#canyonBox {
+  width:100%;
+  height:125%;
+  position:absolute;
+  left:0;
+  bottom:0;
+  transition:2s;
+  z-index:-1;
+  transform-origin: 50% 100%;
+}
+#can {
+  width:100%;
+  height:100px;
+  position:absolute;
+  top:0;
+  left:0;
+  animation:bar 2s linear forwards;
+  background:red;
+  z-index:-1;
+}
+
+.yon {
+  width:50%;
+  height:100%;
+  background:#111;
+  position:absolute;
+  top:0;
+  left:25%;
+}
+</style>
+<body>
+<!-- partial:index.partial.html -->
+<div id="lane">
+  <div id="ship">
+    <div class="rocket"></div>
+    <div class="ship"></div>
+  </div>
+</div>
+
+<div id="score">Use mouse to move<br>SCORE:&nbsp;<span>0<span></div>
+  
+  <div id="menu">SOMETHING IN<BR><SPAN>SPACE</SPAN>
+  <BR style="line-height:70px;">
+    <br><pan class="stuff">Choose your mode:</pan><br>
+      <input type="button" value="Gates"></input>
+<!--       <input type="button"  value="Path"></input> -->
+      <input type="button" value="Epic"></input>
+  <BR style="line-height:70px;">
+  <pan class="swapColor">Click the ship to change color.</pan>
+  </div>
+<!-- partial -->
+  <script>
+    var l = document.querySelector('#lane')
+var ll = l.getBoundingClientRect()
+var ship = document.querySelector('#ship')
+var sh = document.querySelector('.ship')
+var s = ship.getBoundingClientRect()
+
+function color() {
+  return "hsl("+Math.floor(Math.random()*360)+",100%, 50%)"
+}
+
+var score = 0
+
+// ASTERIOD AVOID
+function asteroids() {
+  var ll = l.getBoundingClientRect()
+  var xx = Math.random()*ll.width  
+  var b = document.createElement('div')
+  b.id = "ball"
+  b.style.background = color()
+  b.style.left = xx - 25 + "px"
+
+  l.appendChild(b)
+
+  score++
+  document.querySelector("#score span").innerHTML = score
+  setTimeout(function(){
+    remove() 
+  },2000)
+}
+
+// BARS GAME
+function bars() {
+  var c = color()
+  var div = document.createElement('div')
+  div.id = "barBar"  
+  div.style.background = "linear-gradient(to bottom,transparent," + c + ",white," + c + ",transparent)"
+
+  var bar = document.createElement('div')
+  bar.className = "bar"
+  var os = Math.floor(ll.width*.66)
+  var num = Math.floor(Math.random()*os)
+  bar.style.left = num+"px"
+  bar.style.borderRight = "5px solid " + c
+  bar.style.borderLeft = "5px solid " + c
+
+  l.appendChild(div).appendChild(bar)
+
+  score++
+  document.querySelector("#score span").innerHTML = score
+
+  setTimeout(function(){    document.querySelector("#barBar").remove(document.querySelector("#barBar"))
+                       },1925)
+}
+
+
+function turnCanyon() {
+  var num = Math.floor(Math.random()*45)
+  var d = Math.random() < .5 ? -num : num
+  var box = document.querySelector("#canyonBox")
+  box.style.transform = "skewX("+d+"deg) translateX("+ d/2 +"%)"
+}
+
+function canyon() {  
+  var box = document.querySelector("#canyonBox")
+  var c = color()
+  var div = document.createElement('div')
+  div.id = "can"  
+  div.style.background = c
+
+  var bar = document.createElement('div')
+  bar.className = "yon"  
+  // bar.style.left = num+"px"  
+  box.appendChild(div).appendChild(bar)
+
+  score++
+  document.querySelector("#score span").innerHTML = score
+
+  setTimeout(function(){    document.querySelector("#can").remove(document.querySelector("#can"))  
+                       },2000)
+}
+
+// SHIP MOVEMENT
+setTimeout(function(){
+  var hw = window.innerWidth/2
+  window.addEventListener('mousemove', function(e){
+    var x = e.clientX
+    var rx = x < hw ? -(1-(x/hw)) : (1-(hw/x))*2;
+    // console.log(rx)
+    ship.style.transform = "translateX("+rx*200+"%) rotateZ("+rx*10+"deg)"
+  })  
+},500)
+
+
+
+// GAME SETUP
+var btn = document.querySelectorAll('input')
+var menu = document.querySelector('#menu')
+for(var i=0;i<btn.length;i++){
+  btn[i].addEventListener('click',function(e){
+    menu.style.top = "-100%"
+    score = 0
+    document.querySelector("#score span").innerHTML = score
+    e = this
+    var v = e.value
+    if(e.value == "Gates") {
+      var play = setInterval(bars, 650)
+      var dead = setInterval(hitBars, 1000/30)  
+      }
+    if(e.value == "Path") {
+      var box = document.createElement('div')
+      box.id = "canyonBox"
+      l.appendChild(box)
+      var play = setInterval(canyon, 250) 
+      var can = setInterval(turnCanyon,2000)      
+      var dead = setInterval(hitCan, 1000/30)  
+      }
+    if(e.value == "Epic") {
+      l.style.background = 'rgba(255,255,255,.01)'
+      var play = setInterval(asteroids, 250)
+      var dead = setInterval(hit, 1000/30)  
+      }
+
+    function hit() {
+      var s = ship.getBoundingClientRect()
+      if(document.querySelector('#ball')) {
+        var b = document.querySelector('#ball').getBoundingClientRect()
+
+        if(s.left < b.right 
+           && s.right > b.left 
+           && s.top < b.bottom
+           && s.bottom > b.bottom){   
+
+          ship.classList.add("dead")
+          setTimeout(function(){
+            ship.classList.remove("dead")
+          },2000)
+          clearInterval(play)
+          clearInterval(dead)
+
+          menu.style.top = "50%"
+          l.style.background = ''
+        }      
+      }  
+    }
+
+    function hitBars() {
+      var s = ship.getBoundingClientRect()
+      if(document.querySelector('#barBar')) {
+        var b = document.querySelector('.bar').getBoundingClientRect()
+        var ease = Math.floor(s.width*.25)
+        if((s.top < b.bottom
+            && s.right - ease > b.right)
+           || (s.top < b.bottom
+               && s.left + ease < b.left)
+          ) {   
+
+          ship.classList.add("dead")
+          setTimeout(function(){
+            ship.classList.remove("dead")
+          },2000)
+          clearInterval(play)
+          clearInterval(dead)
+          clearInterval(can)
+
+          menu.style.top = "50%"
+        }      
+      }  
+    }  
+
+    function hitCan() {
+      var s = ship.getBoundingClientRect()
+      if(document.querySelector('#can')) {
+        var b = document.querySelector('.yon').getBoundingClientRect()
+        var ease = Math.floor(s.width*.25)
+        if((s.top < b.bottom
+            && s.right - ease > b.right)
+           || (s.top < b.bottom
+               && s.left + ease < b.left)
+          ) {   
+
+          ship.classList.add("dead")
+          setTimeout(function(){
+            ship.classList.remove("dead")
+            document.querySelector("#canyonBox").remove(document.querySelector("#canyonBox"))
+          },2000)
+          clearInterval(play)
+          clearInterval(dead)    
+          clearInterval(can)     
+
+          menu.style.top = "50%"
+        }      
+      }  
+    }  
+  })
+}
+
+function remove() {
+  document.querySelector('#ball').remove(document.querySelector('#ball'))
+}
+
+ship.addEventListener('click',function(e){
+  e = this
+  e.style.filter = "hue-rotate("+Math.floor(Math.random()*360)+"deg)"
+})
+
+// window.addEventListener('click', function() {
+//   sh.classList.add('barrel')
+//   setTimeout(function(){
+//     sh.classList.remove('barrel')
+//   },250)
+// })
+  </script>
+
+</body>
+</html>

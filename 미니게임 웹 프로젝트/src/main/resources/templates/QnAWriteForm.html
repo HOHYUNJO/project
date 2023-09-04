@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/allCss.css}">
+    <link rel="stylesheet" th:href="@{/css/QnAWriteForm.css}">
+    <link rel="stylesheet" th:href="@{/css/hamburger.css}" />
+    <link rel="icon" href="/img/realLogo.png">
+    <title>QnA 작성하기</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+</head>
+<style>
+    /* 노트 모달창 */
+    .note-modal-content {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+<body>
+<div class="wrapper">
+    <div class="welcome">
+        <p th:text="${session.memberNick} + '님, Mini Game World에 오신 것을 환영합니다.🐱‍🐉'"></p>
+    </div>
+    <div class="header">
+        <nav role="navigation">
+            <div id="menuToggle">
+                <!-- 햄버거 모양 -->
+                <input type="checkbox" />
+                <div class="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <ul id="menu">
+                    <a th:href="@{/main}">
+                        <li>Home</li>
+                    </a>
+                    <a th:href="@{/boardList}">
+                        <li>Community</li>
+                    </a>
+                    <a th:href="@{/myPage}">
+                        <li>My Page</li>
+                    </a>
+                    <a th:href="@{/QnAPage}">
+                        <li>Q&A</li>
+                    </a>
+                    <a th:href="@{/aboutUs}">
+                        <li>About Us</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+        <div class="logo">
+
+            <a th:href="@{/main}">
+                <img class="logoImg" th:src="@{img/logo.png}" alt="">
+            </a>
+        </div>
+        <div class="top-nav">
+            <ul class="top-nav-ul">
+                <li class="top-nav-li"><a th:href="@{/main}">Home</a></li>
+                <li class="top-nav-li"><a th:href="@{/boardList}">Community</a></li>
+                <li class="top-nav-li"><a th:href="@{/myPage}">My Page</a></li>
+                <li class="top-nav-li"><a th:href="@{/QnAPage}">Q&A</a></li>
+                <li class="top-nav-li"><a th:href="@{/aboutUs}">About Us</a></li>
+                <li class="drop-top-nav-li"><a href="#">Account</a>
+                    <ul class="drop-ul">
+                        <li><a th:href="@{/logout}" onclick="logout(event)">logout</a></li>
+                        <li><a href="#"><img class="imgicon" th:src="@{img/설정.png}">설정</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- header 끝 -->
+    <div class="board-btn"></div>
+    <div class="board-list-section">
+        <form method="post" action="/saveQnaBoard">
+            <div class="btns">
+                <h3 class="formText">Q&A 작성하기</h3>
+                <button type="submit" class="btn btn--stripe">글 올리기</button>
+                <button onclick="window.location.href='QnAPage'" class="btn btn--stripe">목록 보기</button>
+            </div>
+
+            <table style="display: block;">
+                <colgroup>
+                    <col style="width: 15%;">
+                    <col style="width: 35%;">
+                    <col style="width: 15%;">
+                    <col style="width: 35%;">
+                </colgroup>
+                <tr>
+                    <th>제목</th>
+                    <td colspan="1"><input type="text" class="input_title" placeholder="Title" name="QNA_Title" required></td>
+                    <th>작성자</th>
+                    <td colspan="1"><input type="text" class="input_writer" name="memberNick"
+                                           th:value="${session.memberNick}" th:readonly="readonly"></td>
+                </tr>
+            </table>
+            <!-- 내용작성 폼 -->
+            <textarea id="summernote" name="QNA_Text" th:text="${QNA_Text}"></textarea>
+            <!--                <input type="hidden" name="QNA_Text" th:value="${QNA_Text}" />-->
+
+            <!-- summernote script -->
+            <script th:inline="javascript">
+                $(document).ready(function() {
+                    var content = /*[[${boardText}]]*/ '';
+                    $('#summernote').summernote({
+                        placeholder: '글 내용을 입력해주세요.',
+                        tabsize: 2,
+                        height: 450,
+                        width: 1200,
+                        toolbar: [
+                            ['style', ['style']],
+                            ['font', ['bold', 'underline', 'clear']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['table', ['table']],
+                            ['insert', ['link', 'picture', 'video']],
+                            ['view', ['fullscreen', 'codeview', 'help']]
+                        ],
+
+                    }).summernote('code', content);
+
+                    // 글 등록에 성공/실패했을 시 메시지
+                    /*<![CDATA[*/
+                    var successMessage = /*[[${successMessage}]]*/ '';
+                    var errorMessage = /*[[${errorMessage}]]*/ '';
+                    if (successMessage && successMessage !== '') {
+                        setTimeout(function() {
+                            alert(successMessage);
+                            window.location.href = '/boardList';
+                        }, 100);
+                    }
+
+                    if (errorMessage && errorMessage !== '') {
+                        setTimeout(function() {
+                            alert(errorMessage);
+                        }, 100);
+                    }
+                    /*]]>*/
+                });
+            </script>
+
+
+        </form>
+
+        <!-- footer 시작 -->
+        <div class="footer">
+            <div class="footer-text">
+                <p>회사정보 <br>
+                    상호 : 그린 컴퓨터 <br>
+                    주소 : 경기도 수원시 <br>
+                    개인정보관리 책임자 : 김그린 (Team2EmailService@gmail.com) <br>
+                    사업자 등록번호 : 111-11-1111
+                </p>
+                <p>
+                    회사소개 | 쇼핑가이드 | 개인정보보호정책 | 이용약관
+                </p>
+            </div>
+            <div class="footers">
+                <div class="footer-cs">
+                    <p>
+                        근무시간 : 월 ~ 금 AM 9:00 ~ PM 7:00 <br>
+                        점심시간 : PM12 :00 ~ PM 1 : 00 <br>
+                        고객센터 : AM 10: 00 ~ PM6 : 00
+                    </p>
+                </div>
+                <div class="ours">
+                    <p>모든 저작권은 2팀에게 있습니다. <br>
+                        Copyright 2023. 2팀 <br>
+                        All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div> <!-- footer 끝 -->
+    </div> <!-- wrapper의 끝 -->
+    <script>
+        //     로그아웃
+        function logout(event) {
+            event.preventDefault(); // 기본 동작 방지
+
+            const confirmed = confirm("로그아웃하시겠습니까?");
+            if (confirmed) {
+                // 서버로 로그아웃 요청을 보내는 Ajax 요청 등을 수행할 수 있습니다.
+                // 세션을 삭제하는 작업은 서버 측에서 처리되어야 합니다.
+
+                // 세션 삭제 후 로그인 페이지로 이동
+                window.location.href = "/logout";
+            }
+        }
+    </script>
+</div>
+</body>
+
+</html>

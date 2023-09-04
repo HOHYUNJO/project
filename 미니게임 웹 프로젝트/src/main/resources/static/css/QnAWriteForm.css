@@ -1,0 +1,139 @@
+@import url(responsive_hamburger.css);
+@import url(responsive_menu_style.css);
+
+.header {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 60px;
+}
+
+.note-editor {
+    margin: 0 auto;
+    background-color: #f2f2f2;
+}
+
+/* 작성자, 제목 입력폼 */
+table {
+    background-color: #f5f5f5;
+    margin: 0 auto;
+    border: 1px solid #e4e4e4;
+    /* border-radius: 5px; */
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 3px;
+    border-top-left-radius: 3px;
+    width: 1200px;
+    padding-top: 5px;
+    border-top: 10px solid #e5e5e5;
+    margin-top: 13px;
+}
+
+.input_title,
+.input_writer {
+    background-color: #f5f5f5;
+    /* background-color: black; */
+    border: none;
+    width: 400px;
+    height: 100%;
+    outline-style: none;
+    font-size: 18pt;
+}
+
+th {
+    font-size: 15pt;
+    font-weight: bold;
+    color: black;
+}
+
+/* 버튼 */
+@-webkit-keyframes stripe-slide {
+    0% {
+        background-position: 0% 0;
+    }
+
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+@keyframes stripe-slide {
+    0% {
+        background-position: 0% 0;
+    }
+
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+/* btn css */
+.btn {
+    overflow: visible;
+    background: transparent;
+    font: inherit;
+    line-height: normal;
+    cursor: pointer;
+    /* -moz-user-select: text; */
+    text-decoration: none;
+    padding: 10px 28px 16px;
+    background-color: #fff;
+    color: #666;
+    border: 2px solid #666;
+    border-radius: 6px;
+    transition: all 0.5s ease;
+}
+
+.btn:-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+.btn--stripe {
+    overflow: hidden;
+    position: relative;
+}
+
+.btn--stripe:after {
+    content: "";
+    display: block;
+    height: 7px;
+    width: 100%;
+    background-image: repeating-linear-gradient(45deg, #666, #666 1px, transparent 2px, transparent 5px);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-top: 1px solid #666;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-size: 7px 7px;
+}
+
+.btn--stripe:hover {
+    background-color: #666;
+    color: #fff;
+    border-color: #000;
+}
+
+.btn--stripe:hover:after {
+    background-image: repeating-linear-gradient(45deg, #fff, #fff 1px, transparent 2px, transparent 5px);
+    border-top: 1px solid #000;
+    -webkit-animation: stripe-slide 12s infinite linear forwards;
+    animation: stripe-slide 12s infinite linear forwards;
+}
+
+.btns{
+    display: flex;
+    width: 1200px;
+    margin: 0 auto;
+    justify-content: flex-end;
+    height: 47px;
+}
+
+.formText{
+    margin-right: 810px;
+    height: 100%;
+    margin-top: 0;
+    line-height: 47px;
+    color: white;
+}

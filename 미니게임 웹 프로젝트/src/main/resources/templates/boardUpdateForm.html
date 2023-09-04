@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="google" value="notranslate" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/allCss.css}" />
+    <link rel="stylesheet" th:href="@{/css/boardWriteForm.css}">
+    <link rel="stylesheet" th:href="@{/css/hamburger.css}" />
+    <link rel="icon" href="/img/realLogo.png">
+    <link rel="stylesheet" type="text/css"
+          th:href="@{https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css}" />
+    <title>게시글 수정</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="welcome">
+            <p th:text="${session.memberNick} + '님, Mini Game World에 오신 것을 환영합니다.🐱‍🐉'"></p>
+        </div>
+        <div class="header">
+            <nav role="navigation">
+                <div id="menuToggle">
+                    <!-- 햄버거 모양 -->
+                    <input type="checkbox" />
+                    <div class="burger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    
+
+                    <ul id="menu">
+                        <a th:href="@{/main}">
+                            <li>Home</li>
+                        </a>
+                        <a th:href="@{/boardList}">
+                            <li>Community</li>
+                        </a>
+                        <a th:href="@{/myPage}">
+                            <li>My Page</li>
+                        </a>
+                        <a th:href="@{/QnAPage}">
+                            <li>Q&A</li>
+                        </a>
+                        <a th:href="@{/aboutUs}">
+                            <li>About Us</li>
+                        </a>
+                    </ul>
+                </div>
+            </nav>
+            <div class="logo">
+                <a th:href="@{/main}"><img class="logoImg" th:src="@{/img/logo.png}" alt=""></a>
+            </div>
+            <div class="top-nav">
+                <ul class="top-nav-ul">
+                    <li class="top-nav-li"><a th:href="@{/main}">Home</a></li>
+                    <li class="top-nav-li"><a th:href="@{/boardList}">Community</a></li>
+                    <li class="top-nav-li"><a th:href="@{/myPage}">My Page</a></li>
+                    <li class="top-nav-li"><a th:href="@{/QnAPage}">Q&A</a></li>
+                    <li class="top-nav-li"><a th:href="@{/aboutUs}">About Us</a></li>
+                    <li class="drop-top-nav-li"><a href="#">Account</a>
+                        <ul class="drop-ul">
+                            <li><a th:href="@{/logout}" onclick="logout(event)">logout</a></li>
+                            <li><a href="#"><img class="imgicon" src="/img/설정.png">설정</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div> <!-- header 끝 -->
+        <div class="board-list-section">
+            <form method="post" action="/boardUpdate">
+                <input th:type="text" th:name="board_idx" th:value="${board.board_idx}" th:hidden="hidden"/>
+                <div class="btns">
+                    <button style="position: absolute; top: 178px; right: 356px;" onclick="location.href='boardList'" class="btn btn--stripe">목록 보기</button>
+                    <button style="position: absolute; top: 178px; right: 489px;" th:type="submit" class="btn btn--stripe" >수정 완료</button>
+                </div>
+
+                <table style="display: block;">
+                    <colgroup>
+                        <col style="width: 15%;">
+                        <col style="width: 35%;">
+                        <col style="width: 15%;">
+                        <col style="width: 35%;">
+                    </colgroup>
+                    <tr>
+                        <th>제목</th>
+                        <td colspan="1"><input type="text" class="input_title" name="boardTitle" th:value="${board.getBoardTitle()}" required></td>
+                        <th>작성자</th>
+                        <td colspan="1"><input type="text" class="input_writer" name="memberNick" th:value="${session.memberNick}" th:readonly="readonly" /></td>
+                    </tr>
+                </table>
+
+            <!-- 내용작성 폼 -->
+            <textarea id="summernote" name="boardText" th:text="${board.getBoardText()}"></textarea>
+<!--            <input type="hidden" name="boardText" th:value="${boardText}" />-->
+            <script>
+                $('#summernote').summernote({
+                    placeholder: '글 내용을 입력해주세요.',
+                    tabsize: 2,
+                    height: 450,
+                    width: 1200,
+                    toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                });
+            </script>
+            </form>
+
+            <!-- footer 시작 -->
+            <div class="footer">
+                <div class="footer-text">
+                    <p>회사정보 <br>
+                        상호 : 그린 컴퓨터 <br>
+                        주소 : 경기도 수원시 <br>
+                        개인정보관리 책임자 : 김그린 (Team2EmailService@gmail.com) <br>
+                        사업자 등록번호 : 111-11-1111
+                    </p>
+                    <p>
+                        회사소개 | 쇼핑가이드 | 개인정보보호정책 | 이용약관
+                    </p>
+                </div>
+                <div class="footers">
+                    <div class="footer-cs">
+                        <p>
+                            근무시간 : 월 ~ 금 AM 9:00 ~ PM 7:00 <br>
+                            점심시간 : PM12 :00 ~ PM 1 : 00 <br>
+                            고객센터 : AM 10: 00 ~ PM6 : 00
+                        </p>
+                    </div>
+                    <div class="ours">
+                        <p>모든 저작권은 2팀에게 있습니다. <br>
+                            Copyright 2023. 2팀 <br>
+                            All rights reserved.
+                        </p>
+                    </div>
+                </div>
+            </div> <!-- footer 끝 -->
+        </div> <!-- wrapper의 끝 -->
+    </div>
+</body>
+
+</html>

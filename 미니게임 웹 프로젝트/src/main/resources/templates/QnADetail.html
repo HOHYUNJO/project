@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="google" value="notranslate" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" th:href="@{/css/allCss.css}">
+    <link rel="stylesheet" th:href="@{/css/QnADetail.css}">
+    <link rel="stylesheet" th:href="@{/css/hamburger.css}" />
+    <link rel="icon" href="/img/realLogo.png">
+    <link rel="stylesheet" type="text/css"
+          th:href="@{https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css}" />
+    <title>QnA</title>
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="welcome">
+        <p th:text="${session.memberNick} + '님, Mini Game World에 오신 것을 환영합니다.🐱‍🐉'"></p>
+    </div>
+    <div class="header">
+        <nav role="navigation">
+            <div id="menuToggle">
+                <!-- 햄버거 모양 -->
+                <input type="checkbox" />
+                <div class="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <ul id="menu">
+                    <a th:href="@{/main}">
+                        <li>Home</li>
+                    </a>
+                    <a th:href="@{/boardList}">
+                        <li>Community</li>
+                    </a>
+                    <a th:href="@{/myPage}">
+                        <li>My Page</li>
+                    </a>
+                    <a th:href="@{/QnAPage}">
+                        <li>Q&A</li>
+                    </a>
+                    <a th:href="@{/aboutUs}">
+                        <li>About Us</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+        <div class="logo">
+            <a th:href="@{/main}"><img class="logoImg" th:src="@{/img/logo.png}" alt=""></a>
+        </div>
+        <div class="top-nav">
+            <ul class="top-nav-ul">
+                <li class="top-nav-li"><a th:href="@{/main}">Home</a></li>
+                <li class="top-nav-li"><a th:href="@{/boardList}">Community</a></li>
+                <li class="top-nav-li"><a th:href="@{/myPage}">My Page</a></li>
+                <li class="top-nav-li"><a th:href="@{/QnAPage}">Q&A</a></li>
+                <li class="top-nav-li"><a th:href="@{/aboutUs}">About Us</a></li>
+                <li class="drop-top-nav-li"><a href="#">Account</a>
+                    <ul class="drop-ul">
+                        <li><a th:href="@{/logout}" onclick="logout(event)">logout</a></li>
+                        <li><a href="#"><img class="imgicon" th:src="@{/img/설정.png}">설정</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div> <!-- header 끝 -->
+
+    <div class="board-content-section">
+
+        <div id="board-list" style="width: 100%; margin: 0 auto;">
+            <div class="container">
+                <table class="board-table" style="margin: 0 auto;">
+                    <thead>
+                    <tr style="overflow: hidden ;">
+                        <th scope="col" colspan="3" style="font-size:2em; width: 82%;box-sizing: border-box;" th:text="${qna.QNA_Title}">
+
+                        </th>
+                        <th style="padding: 0; width:18%; box-sizing: border-box;">
+                            <button class="btn btn--stripe " type="button"
+                                    th:onclick="|location.href='/QnABoardUpdateForm?QNA_idx=${qna.QNA_idx}'|"
+                                    style="display: inline; margin: 5% 3% 5%; width: 42%; padding: 12px ;">수
+                                정</button>
+                            <button class="btn btn--stripe " type="button" th:onclick="|location.href='/QnAboardDelete?QNA_idx=${qna.QNA_idx}'|"
+                                    style="display: inline; margin: 5% 3% 5%; width: 42%; padding: 12px ;">삭
+                                제</button>
+                            <input th:type="text" th:value="${qna.QNA_idx}" th:hidden="hidden"/>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="board-Writer">
+                        <td class="writer-photo" rowspan="2">사진칸</td>
+                        <td colspan="2" style="text-align: left; padding-left: 10px;"
+                            th:text="${session.memberNick}"></td> <!-- 버그 발견 했음 -->
+                        <td style="text-align: right; padding-right: 10px;" th:text="${#dates.format(qna.CREATED_AT, 'yyyy-MM-dd')}"></td>
+                        <!-- 2023.07.05 -->
+                    </tr>
+                    <tr>
+                        <td style="text-align:left; padding-left:10px; width: 8%;">조회수</td>
+                        <td colspan="2" style="text-align:left; padding-left:10px" th:text="${qna.QNACount}">
+                        </td> <!-- 99 -->
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="word-break: break-all">
+                                    <pre style="text-align: left; white-space:pre-wrap; word-break: break-all;"
+                                         th:text="${qna.QNA_Text}"></pre>
+                        </td> <!-- 버그 발견했는데 고쳐주세요!! -->
+
+                    </tr>
+                    </tbody>
+
+                </table>
+
+                <div class="btn-box">
+                    <button class="btn btn--stripe" th:if="${prevQna != null}"
+                            th:href="@{/QnADetail(QNA_idx=${prevQna.QNA_idx})}">◀ 이전 글</button>
+                    <a th:href="@{/QnAPage}" class="btn btn--stripe" style="text-decoration: none; display: inline-block;">
+                        목록 보기
+                    </a>
+                </a>
+
+                    <button class="btn btn--stripe" th:if="${nextQna != null}"
+                            th:href="@{/QnADetail(QNA_idx=${nextQna.QNA_idx})}">다음 글 ▶</button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 페이징.. -->
+
+    </div> <!-- board-content-section 끝 -->
+
+
+    <!-- footer -->
+    <div class="footer">
+        <div class="footer-text">
+            <p>회사정보 <br>
+                상호 : 그린 컴퓨터 <br>
+                주소 : 경기도 수원시 <br>
+                개인정보관리 책임자 : 김그린 (Team2EmailService@gmail.com) <br>
+                사업자 등록번호 : 111-11-1111
+            </p>
+            <p>
+                회사소개 | 쇼핑가이드 | 개인정보보호정책 | 이용약관
+            </p>
+        </div>
+        <div class="footers">
+            <div class="footer-cs">
+                <p>
+                    근무시간 : 월 ~ 금 AM 9:00 ~ PM 7:00 <br>
+                    점심시간 : PM12 :00 ~ PM 1 : 00 <br>
+                    고객센터 : AM 10: 00 ~ PM6 : 00
+                </p>
+            </div>
+            <div class="ours">
+                <p>모든 저작권은 2팀에게 있습니다. <br>
+                    Copyright 2023. 2팀 <br>
+                    All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div> <!-- footer 끝 -->
+</div> <!-- wrapper의 끝 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    //     로그아웃
+    function logout(event) {
+        event.preventDefault(); // 기본 동작 방지
+
+        const confirmed = confirm("로그아웃하시겠습니까?");
+        if (confirmed) {
+            // 서버로 로그아웃 요청을 보내는 Ajax 요청 등을 수행할 수 있습니다.
+            // 세션을 삭제하는 작업은 서버 측에서 처리되어야 합니다.
+
+            // 세션 삭제 후 로그인 페이지로 이동
+            window.location.href = "/logout";
+        }
+    }
+</script>
+</body>
+
+</html>

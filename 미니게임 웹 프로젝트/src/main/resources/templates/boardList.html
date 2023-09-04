@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/allCss.css}" />
+    <link rel="stylesheet" th:href="@{/css/boardList.css}" />
+    <link rel="stylesheet" th:href="@{/css/hamburger.css}" />
+    <link rel="icon" href="/img/realLogo.png">
+    <title>게시글 목록보기</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="welcome">
+        <p th:text="${session.memberNick} + '님, Mini Game World에 오신 것을 환영합니다.🐱‍🐉'"></p>
+    </div>
+    <div class="header">
+        <nav role="navigation">
+            <div id="menuToggle">
+                <!-- 햄버거 모양 -->
+                <input type="checkbox" />
+                <div class="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <ul id="menu">
+                    <a th:href="@{/main}">
+                        <li>Home</li>
+                    </a>
+                    <a th:href="@{/boardList}">
+                        <li>Community</li>
+                    </a>
+                    <a th:href="@{/myPage}">
+                        <li>My Page</li>
+                    </a>
+                    <a th:href="@{/QnAPage}">
+                        <li>Q&A</li>
+                    </a>
+                    <a th:href="@{/aboutUs}">
+                        <li>About Us</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+        <div class="logo">
+            <a th:href="@{/main}"><img class="logoImg" th:src="@{/img/logo.png}" alt=""></a>
+        </div>
+        <div class="top-nav">
+            <ul class="top-nav-ul">
+                <li class="top-nav-li"><a th:href="@{/main}">Home</a></li>
+                <li class="top-nav-li"><a th:href="@{/boardList}">Community</a></li>
+                <li class="top-nav-li"><a th:href="@{/myPage}">My Page</a></li>
+                <li class="top-nav-li"><a th:href="@{/QnAPage}">Q&A</a></li>
+                <li class="top-nav-li"><a th:href="@{/aboutUs}">About Us</a></li>
+                <li class="drop-top-nav-li"><a href="#">Account</a>
+                    <ul class="drop-ul">
+                        <li><a th:href="@{/logout}" onclick="logout(event)">logout</a></li>
+                        <li><a href="#"><img class="imgicon" th:src="@{/img/설정.png}">설정</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div> <!-- header 끝 -->
+
+    <div class="board-list-section">
+
+        <!-- 검색폼 -->
+<!--        <form th:action="@{/search}" method="get" class="search-form">-->
+<!--            <input type="text" name="keyword" placeholder="Search" class="search-input" >-->
+<!--            <button th:type="submit" class="search-button" th:onclick="debugger">-->
+<!--                <svg class="submit-button">-->
+<!--                    <use xlink:href="#search"></use>-->
+<!--                </svg>-->
+<!--            </button>-->
+        <form class="search-form" onsubmit="return submitSearch(event)">
+            <input type="text" id="keyword" placeholder="Search" class="search-input">
+            <button type="button" class="search-button" onclick="searchBoards()">
+                <svg class="submit-button">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                </svg>
+            </button>
+            <div class="search-option">
+                <div>
+                    <input th:name="type" th:type="radio" th:value="WRITER" th:id="type-writer"
+                           th:checked="${#strings.equals('type', 'WRITER')}">
+                    <label th:for="type-writer">
+                        <svg class="edit-pen-title">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
+                        </svg>
+                        <span>WRITER</span>
+                    </label>
+                </div>
+
+<!--                <div>-->
+<!--                    <input name="type" type="radio" value="type-contents" id="type-posts">-->
+<!--                    <label for="type-posts">-->
+<!--                        <svg class="edit-pen-title">-->
+<!--                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#post"></use>-->
+<!--                        </svg>-->
+<!--                        <span>Contents</span>-->
+<!--                    </label>-->
+<!--                </div>-->
+                <div>
+                    <input th:name="type" th:type="radio" th:value="CONTENTS" th:id="type-contents" >
+                    <label th:for="type-contents">
+                        <svg class="edit-pen-title">
+                            <use xlink:href="#post"></use>
+                        </svg>
+                        <span>CONTENTS</span>
+                    </label>
+                </div>
+                <div>
+                    <input th:name="type" th:type="radio" th:value="ALL" th:id="type-all" th:checked="true">
+                    <label th:for="type-all">
+                        <svg class="edit-pen-title">
+                            <text x="-1" y="14" style="font-size: 8.5pt; font-weight: bold;">
+                                전체
+                            </text>
+                            <!-- <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#special"></use> -->
+                        </svg>
+                        <span>All</span>
+                    </label>
+                </div>
+            </div>
+        </form>
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
+            <symbol id="search" viewBox="0 0 32 32">
+                <path
+                        d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z" />
+            </symbol>
+            <symbol id="user" viewBox="0 0 32 32">
+                <path
+                        d="M 16 4 C 12.145852 4 9 7.1458513 9 11 C 9 13.393064 10.220383 15.517805 12.0625 16.78125 C 8.485554 18.302923 6 21.859881 6 26 L 8 26 C 8 21.533333 11.533333 18 16 18 C 20.466667 18 24 21.533333 24 26 L 26 26 C 26 21.859881 23.514446 18.302923 19.9375 16.78125 C 21.779617 15.517805 23 13.393064 23 11 C 23 7.1458513 19.854148 4 16 4 z M 16 6 C 18.773268 6 21 8.2267317 21 11 C 21 13.773268 18.773268 16 16 16 C 13.226732 16 11 13.773268 11 11 C 11 8.2267317 13.226732 6 16 6 z" />
+            </symbol>
+            <symbol id="images" viewbox="0 0 32 32">
+                <path
+                        d="M 2 5 L 2 6 L 2 26 L 2 27 L 3 27 L 29 27 L 30 27 L 30 26 L 30 6 L 30 5 L 29 5 L 3 5 L 2 5 z M 4 7 L 28 7 L 28 20.90625 L 22.71875 15.59375 L 22 14.875 L 21.28125 15.59375 L 17.46875 19.40625 L 11.71875 13.59375 L 11 12.875 L 10.28125 13.59375 L 4 19.875 L 4 7 z M 24 9 C 22.895431 9 22 9.8954305 22 11 C 22 12.104569 22.895431 13 24 13 C 25.104569 13 26 12.104569 26 11 C 26 9.8954305 25.104569 9 24 9 z M 11 15.71875 L 20.1875 25 L 4 25 L 4 22.71875 L 11 15.71875 z M 22 17.71875 L 28 23.71875 L 28 25 L 23.03125 25 L 18.875 20.8125 L 22 17.71875 z" />
+            </symbol>
+            <symbol id="post" viewbox="0 0 32 32">
+                <path
+                        d="M 3 5 L 3 6 L 3 23 C 3 25.209804 4.7901961 27 7 27 L 25 27 C 27.209804 27 29 25.209804 29 23 L 29 13 L 29 12 L 28 12 L 23 12 L 23 6 L 23 5 L 22 5 L 4 5 L 3 5 z M 5 7 L 21 7 L 21 12 L 21 13 L 21 23 C 21 23.73015 21.221057 24.41091 21.5625 25 L 7 25 C 5.8098039 25 5 24.190196 5 23 L 5 7 z M 7 9 L 7 10 L 7 13 L 7 14 L 8 14 L 18 14 L 19 14 L 19 13 L 19 10 L 19 9 L 18 9 L 8 9 L 7 9 z M 9 11 L 17 11 L 17 12 L 9 12 L 9 11 z M 23 14 L 27 14 L 27 23 C 27 24.190196 26.190196 25 25 25 C 23.809804 25 23 24.190196 23 23 L 23 14 z M 7 15 L 7 17 L 12 17 L 12 15 L 7 15 z M 14 15 L 14 17 L 19 17 L 19 15 L 14 15 z M 7 18 L 7 20 L 12 20 L 12 18 L 7 18 z M 14 18 L 14 20 L 19 20 L 19 18 L 14 18 z M 7 21 L 7 23 L 12 23 L 12 21 L 7 21 z M 14 21 L 14 23 L 19 23 L 19 21 L 14 21 z" />
+            </symbol>
+            <symbol id="special" viewbox="0 0 32 32">
+                <path
+                        d="M 4 4 L 4 5 L 4 27 L 4 28 L 5 28 L 27 28 L 28 28 L 28 27 L 28 5 L 28 4 L 27 4 L 5 4 L 4 4 z M 6 6 L 26 6 L 26 26 L 6 26 L 6 6 z M 16 8.40625 L 13.6875 13.59375 L 8 14.1875 L 12.3125 18 L 11.09375 23.59375 L 16 20.6875 L 20.90625 23.59375 L 19.6875 18 L 24 14.1875 L 18.3125 13.59375 L 16 8.40625 z M 16 13.3125 L 16.5 14.40625 L 17 15.5 L 18.1875 15.59375 L 19.40625 15.6875 L 18.5 16.5 L 17.59375 17.3125 L 17.8125 18.40625 L 18.09375 19.59375 L 17 19 L 16 18.40625 L 15 19 L 14 19.59375 L 14.3125 18.40625 L 14.5 17.3125 L 13.59375 16.5 L 12.6875 15.6875 L 13.90625 15.59375 L 15.09375 15.5 L 15.59375 14.40625 L 16 13.3125 z" />
+            </symbol>
+        </svg>
+
+        <!-- 검색폼 끝 -->
+
+        <button type="button" onclick="location.href='boardWrite'" style="margin-right: 47.7px;" class="btn btn--stripe right">글 작성</button>
+
+        <div id="board-list">
+            <div class="container">
+                <table class="board-table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="th-num">글번호</th>
+                        <th scope="col" class="th-title">제목</th>
+                        <th scope="col" class="th-writer">작성자</th>
+                        <th scope="col" class="th-date">등록일</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="board : ${list}">
+                        <td th:text="${board.board_idx}"></td>
+                        <th>
+                            <a th:href="@{/boardDetail(board_idx=${board.board_idx})}" th:text="${board.boardTitle}"></a>
+                        </th>
+                        <td th:text="${board.memberNick}"></td>
+                        <td th:text="${board.CREATED_AT}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- 페이징 -->
+                <div class="pagination">
+                    <ul>
+                        <li th:if="${hasPrevPage}">
+                            <a th:href="@{/boardList(page=${currentPage - 1}, size=${size})}" aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+
+                        <!-- 페이지 숫자 표시 -->
+                        <li th:each="pageNumber : ${#numbers.sequence(startPage, endPage)}"
+                            th:class="${currentPage == pageNumber ? 'active' : ''}">
+                            <a th:href="@{/boardList(page=${pageNumber}, size=${size})}" th:text="${pageNumber}"></a>
+                        </li>
+
+                        <!-- 다음 버튼 -->
+                        <li th:if="${hasNextPage}">
+                            <a th:href="@{/boardList(page=${currentPage + 1}, size=${size})}" aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 페이징 끝 -->
+            </div>
+        </div>
+
+    </div> <!-- board-list-section 끝 -->
+
+    <div class="footer">
+        <div class="footer-text">
+            <p>회사정보 <br>
+                상호 : 그린 컴퓨터 <br>
+                주소 : 경기도 수원시 <br>
+                개인정보관리 책임자 : 김그린 (Team2EmailService@gmail.com) <br>
+                사업자 등록번호 : 111-11-1111
+            </p>
+            <p>
+                회사소개 | 쇼핑가이드 | 개인정보보호정책 | 이용약관
+            </p>
+        </div>
+        <div class="footers">
+            <div class="footer-cs">
+                <p>
+                    근무시간 : 월 ~ 금 AM 9:00 ~ PM 7:00 <br>
+                    점심시간 : PM12 :00 ~ PM 1 : 00 <br>
+                    고객센터 : AM 10: 00 ~ PM6 : 00
+                </p>
+            </div>
+            <div class="ours">
+                <p>모든 저작권은 2팀에게 있습니다. <br>
+                    Copyright 2023. 2팀 <br>
+                    All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div> <!-- footer 끝 -->
+</div> <!-- wrapper의 끝 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    //     로그아웃
+    function logout(event) {
+        event.preventDefault(); // 기본 동작 방지
+
+        const confirmed = confirm("로그아웃하시겠습니까?");
+        if (confirmed) {
+            // 서버로 로그아웃 요청을 보내는 Ajax 요청 등을 수행할 수 있습니다.
+            // 세션을 삭제하는 작업은 서버 측에서 처리되어야 합니다.
+
+            // 세션 삭제 후 로그인 페이지로 이동
+            window.location.href = "/logout";
+        }
+    }
+
+    // Function to perform the search using Ajax
+    function searchBoards() {
+        const keyword = $('#keyword').val();
+        const type = $('input[name="type"]:checked').val();
+
+        // 검색어가 비어있는지 확인
+        if (keyword.trim() === "") {
+            // 검색어가 비어있으면 알림 표시
+            alert("검색어를 입력해주세요.");
+            return; // 검색 중단
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: '/search',
+            data: {
+                keyword: keyword,
+                type: type
+            },
+            dataType: 'json',
+            success: function (data) {
+                // Update the board list with the search results
+                updateBoardList(data);
+            },
+            error: function (error) {
+                console.error('Error performing search:', error);
+            }
+        });
+    }
+
+    // Function to update the board list with the search results
+    function updateBoardList(boards) {
+        const tableBody = $('#board-list').find('tbody');
+        tableBody.empty();
+
+        boards.forEach(function (board) {
+            const row = '<tr>' +
+                '<td>' + board.board_idx + '</td>' +
+                '<td><a href="/boardDetail?board_idx=' + board.board_idx + '">' + board.boardTitle + '</a></td>' +
+                '<td>' + board.memberNick + '</td>' +
+                '<td>' + board.CREATED_AT + '</td>' +
+                '</tr>';
+
+            tableBody.append(row);
+        });
+        // 검색 결과를 표시할 때 페이징 숨기기
+        $('.pagination').hide();
+
+    }
+
+    // Function to handle form submission for search
+    function submitSearch(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        searchBoards(); // Perform the search
+        return false; // Return false to prevent form submission
+    }
+
+</script>
+</body>
+
+</html>

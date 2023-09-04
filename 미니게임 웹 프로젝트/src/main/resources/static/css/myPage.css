@@ -1,0 +1,310 @@
+@import url(responsive_hamburger.css);
+@import url(responsive_menu_style.css);
+
+.header {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 60px;
+}
+
+body {
+    /* margin-top: 100px; */
+    line-height: 1.6
+}
+
+.container {
+    width: 1250px;
+    margin: 0 auto;
+}
+
+ul.tabs {
+    position: relative;
+    left: 10px;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+ul.tabs li {
+    background: none;
+    background-color: #26395c;
+    color: white;
+    display: inline-block;
+    padding: 10px 15px;
+    cursor: pointer;
+    /* border-top-left-radius: 5px;
+    border-top-right-radius: 5px; */
+}
+
+ul.tabs li.current {
+    background: #3e5e97;
+    color: white;
+    /* border-top-left-radius: 5px;
+    border-top-right-radius: 5px; */
+}
+
+.tab-content {
+    display: none;
+    background: whitesmoke;
+    padding: 15px;
+    color: #222;
+    border-top: 3px solid #929aa3;
+    border-bottom: 3px solid #929aa3;
+}
+/* 내 정보 탭 */
+.tab-content.current {
+    display: inherit;
+}
+
+.profile {
+    width: 100%;
+    display: flex;
+}
+/* 프로필 사진 위치 조정 */
+.profile-picture {
+    width: 70%;
+    position: relative;
+    left: 10%;
+}
+
+.profile-info {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.photo img{
+    border-radius: 50%; 
+    width: 350px;
+    height: 350px;
+}
+.top-text{
+    /* border: 1px solid green; */
+    padding-left: 140px;
+}
+.bottom-text{
+    padding-left: 60px;
+}
+.footer {
+    margin-top: 500px;
+}
+
+/* 내가 쓴 글 목록 탭 */
+.tab-table {
+    width: 70%;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.tab-content {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* 버튼 css */
+@-webkit-keyframes stripe-slide {
+    0% {
+        background-position: 0% 0;
+    }
+
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+@keyframes stripe-slide {
+    0% {
+        background-position: 0% 0;
+    }
+
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+.btn {
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    line-height: normal;
+    cursor: pointer;
+    /* -moz-user-select: text; */
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 10px 28px 16px;
+    background-color: #fff;
+    color: #666;
+    border: 2px solid #666;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    transition: all 0.5s ease;
+    width: 160px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: 0px;
+}
+
+.btn::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+.btn--stripe {
+    overflow: hidden;
+    position: relative;
+}
+
+.btn--stripe:after {
+    content: "";
+    display: block;
+    height: 7px;
+    width: 100%;
+    background-image: repeating-linear-gradient(45deg, #666, #666 1px, transparent 2px, transparent 5px);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-top: 1px solid #666;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-size: 7px 7px;
+}
+
+.btn--stripe:hover {
+    background-color: #666;
+    color: #fff;
+    border-color: #000;
+}
+
+.btn--stripe:hover:after {
+    background-image: repeating-linear-gradient(45deg, #fff, #fff 1px, transparent 2px, transparent 5px);
+    border-top: 1px solid #000;
+    -webkit-animation: stripe-slide 12s infinite linear forwards;
+    animation: stripe-slide 12s infinite linear forwards;
+}
+/* 버튼 위치 이동 */
+.right{
+    position: relative;
+    right: 50%;
+    top: 10%;
+}
+/* 내가 쓴 글 목록 테이블 css */
+.board-table {
+    color: #333;
+    font-size: 13px;
+    width: 100%;
+    border-top: 3px solid #666;
+    border-bottom: 3px solid #666;
+}
+
+.board-table a {
+    color: #333;
+    display: inline-block;
+    line-height: 1.4;
+    word-break: break-all;
+    vertical-align: middle;
+}
+
+.board-table a:hover {
+    text-decoration: underline;
+}
+
+.board-table th {
+    text-align: center;
+}
+
+.board-table .th-num {
+    width: 100px;
+    text-align: center;
+}
+
+.board-table .th-date {
+    width: 200px;
+}
+
+.board-table th,
+.board-table td {
+    padding: 14px 0;
+}
+
+.board-table tbody td {
+    border-top: 1px solid #e7e7e7;
+    text-align: center;
+}
+
+.board-table tbody th {
+    padding-left: 28px;
+    padding-right: 14px;
+    border-top: 1px solid #e7e7e7;
+    text-align: left;
+}
+
+.board-table tbody th p {
+    display: none;
+}
+
+* {
+    list-style: none;
+    text-decoration: none;
+}
+
+.clearfix:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.blind {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    margin: -1px;
+    width: 1px;
+    height: 1px;
+}
+
+.board-table {
+    background-color: white;
+}
+/* 페이징 영역 스타일 */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination ul {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+.pagination li {
+    display: inline;
+    margin: 0 5px;
+}
+
+.paging-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #f2f2f2;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.paging-btn:hover {
+    background-color: #ccc;
+}
+
+.paging-btn.active {
+    background-color: #333;
+    color: #fff;
+}
+/* 페이징 영역 스타일 */

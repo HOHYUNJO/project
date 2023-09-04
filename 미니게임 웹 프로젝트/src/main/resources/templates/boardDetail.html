@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="google" value="notranslate" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" th:href="@{/css/allCss.css}" />
+    <link rel="stylesheet" th:href="@{/css/boardDetail.css}">
+    <link rel="stylesheet" th:href="@{/css/hamburger.css}" />
+    <link rel="icon" href="/img/realLogo.png">
+    <link rel="stylesheet" type="text/css"
+          th:href="@{https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css}" />
+    <title>게시글 상세 페이지</title>
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="welcome">
+        <p th:text="${session.memberNick} + '님, Mini Game World에 오신 것을 환영합니다.🐱‍🐉'"></p>
+    </div>
+    <div class="header">
+        <nav role="navigation">
+            <div id="menuToggle">
+                <!-- 햄버거 모양 -->
+                <input type="checkbox" />
+                <div class="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <ul id="menu">
+                    <a th:href="@{/main}">
+                        <li>Home</li>
+                    </a>
+                    <a th:href="@{/boardList}">
+                        <li>Community</li>
+                    </a>
+                    <a th:href="@{/myPage}">
+                        <li>My Page</li>
+                    </a>
+                    <a th:href="@{/QnAPage}">
+                        <li>Q&A</li>
+                    </a>
+                    <a th:href="@{/aboutUs}">
+                        <li>About Us</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+        <div class="logo">
+            <a th:href="@{/main}"><img class="logoImg" th:src="@{/img/logo.png}" alt=""></a>
+        </div>
+        <div class="top-nav">
+            <ul class="top-nav-ul">
+                <li class="top-nav-li"><a th:href="@{/main}">Home</a></li>
+                <li class="top-nav-li"><a th:href="@{/boardList}">Community</a></li>
+                <li class="top-nav-li"><a th:href="@{/myPage}">My Page</a></li>
+                <li class="top-nav-li"><a th:href="@{/QnAPage}">Q&A</a></li>
+                <li class="top-nav-li"><a th:href="@{/aboutUs}">About Us</a></li>
+                <li class="drop-top-nav-li"><a href="#">Account</a>
+                    <ul class="drop-ul">
+                        <li><a th:href="@{/logout}" onclick="logout(event)">logout</a></li>
+                        <li><a href="#"><img class="imgicon" src="/img/설정.png">설정</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div> <!-- header 끝 -->
+
+    <div class="board-content-section">
+
+        <div id="board-list">
+            <div class="container">
+                <table class="board-table">
+                    <thead>
+                    <tr style="overflow: hidden;">
+                        <th scope="col" colspan="3" style="font-size: 2em; width: 82%; box-sizing: border-box;"
+                            th:text="${board.boardTitle}"></th>
+                        <th th:if="${session.memberNick == board.getMemberNick()}" style="padding: 0; width: 18%; box-sizing: border-box;">
+                            <button class="btn btn--stripe" type="button" th:onclick="|location.href='/boardUpdateForm?board_idx=${board.board_idx}'|"
+                                    style="display: inline; margin: 5% 3% 5%; width: 42%; padding: 12px;">수정</button>
+                            <button class="btn btn--stripe" type="button" th:onclick="|location.href='/boardDelete?board_idx=${board.board_idx}'|"
+                                    style="display: inline; margin: 5% 3% 5%; width: 42%; padding: 12px;">삭제</button>
+                        <input th:type="text" th:value="${board.board_idx}" th:hidden="hidden"/>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="board-Writer">
+                        <td class="writer-photo" rowspan="2">사진칸</td>
+                        <td colspan="2" style="text-align: left; padding-left: 10px;" th:text="${board.memberNick}"></td>
+                        <td style="text-align: right; padding-right: 10px;" th:text="${board.CREATED_AT}"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left; padding-left: 10px; width: 8%;">조회수</td>
+                        <td colspan="2" style="text-align: right; padding-right: 10px;" th:text="${board.boardCount}"></td>
+<!--                        <td colspan="2" style="text-align: left; padding-left: 10px;" th:text="${views}"></td>-->
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="word-break: break-all" th:text="${board.boardText}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!-- 댓글        -->
+                <div class="comment-section">
+                    <h2>댓글</h2>
+                    <div class="comment-list">
+                        <!-- 댓글 목록이 동적으로 추가될 부분 -->
+                        <div th:each="comment : ${comments}" class="comment-item" th:data-comment-id="${comment.getCommentId()}">
+                            <div class="comment-header">
+                                <span class="comment-nick" th:text="${comment.getCommentNick()}"></span>
+                                <div class="comment-content-wrapper">
+                                    <span class="comment-content" th:text="${comment.getCommentText()}"></span>
+                                </div>
+                                <div style="justify-content:flex-end;" >
+                                    <button th:if="${session.memberNick == comment.getCommentNick()}" class="comment-delete-btn" type="button"  th:onclick="deleteComment(${comment.getCommentId()})">x</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="comment-form">
+                        <div class="comment-input-container">
+                            <input type="text" class="comment-nick" th:value="${session.memberNick}" th:readonly="readonly" />
+                            <textarea class="comment-input" placeholder="댓글을 입력하세요..." required></textarea>
+                        </div>
+                        <input type="hidden" name="boardNum" th:value="${board.board_idx}" />
+                        <button type="submit" class="btn btn--stripe" style="width: 100px;margin: 0 0 0 5px">등록</button>
+                    </form>
+                </div>
+
+                <div class="btn-box">
+                    <a class="btn btn--stripe" th:if="${prevBoard != null}" th:href="@{/boardDetail(board_idx=${prevBoard.board_idx})}">◀ 이전 글</a>
+                    <a class="btn btn--stripe" th:href="@{/boardList}">전체 목록 보기</a><a class="btn btn--stripe" th:href="@{/myPage}">내가 쓴 목록 보기</a>
+                    <a class="btn btn--stripe" th:if="${nextBoard != null}" th:href="@{/boardDetail(board_idx=${nextBoard.board_idx})}">다음 글 ▶</a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 페이징.. -->
+
+
+    </div> <!-- board-content-section 끝 -->
+
+    <!-- footer -->
+    <div class="footer">
+        <div class="company-info">
+            그린 컴퓨터 <br>
+            김그린 (Team2EmailService@gmail.com) <br>
+            고객센터 : AM 10: 00 ~ PM6 : 00
+            Copyright 2023. 2팀 <br>
+            All rights reserved.
+        </div>
+        <div class="footer-text hidden-info">
+            <p>회사정보 <br>
+                상호 : 그린 컴퓨터 <br>
+                주소 : 경기도 수원시 <br>
+                개인정보관리 책임자 : 김그린 (Team2EmailService@gmail.com) <br>
+                사업자 등록번호 : 111-11-1111
+            </p>
+            <p>
+                회사소개 | 쇼핑가이드 | 개인정보보호정책 | 이용약관
+            </p>
+        </div>
+        <div class="footers hidden-info">
+            <div class="footer-cs">
+                <p>
+                    근무시간 : 월 ~ 금 AM 9:00 ~ PM 7:00 <br>
+                    점심시간 : PM12 :00 ~ PM 1 : 00 <br>
+                    고객센터 : AM 10: 00 ~ PM6 : 00
+                </p>
+            </div>
+            <div class="ours">
+                <p>모든 저작권은 2팀에게 있습니다. <br>
+                    Copyright 2023. 2팀 <br>
+                    All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div> <!-- footer 끝 -->
+</div> <!-- wrapper의 끝 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    //     로그아웃
+    function logout(event) {
+        event.preventDefault(); // 기본 동작 방지
+
+        const confirmed = confirm("로그아웃하시겠습니까?");
+        if (confirmed) {
+            // 서버로 로그아웃 요청을 보내는 Ajax 요청 등을 수행할 수 있습니다.
+            // 세션을 삭제하는 작업은 서버 측에서 처리되어야 합니다.
+
+            // 세션 삭제 후 로그인 페이지로 이동
+            window.location.href = "/logout";
+        }
+    }
+
+    // 댓글 저장
+    function saveComment(commentText, boardNum, commentNick) {
+        var comment = {
+            commentText: commentText,
+            boardNum: boardNum,
+            commentNick: commentNick
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/saveComment',
+            contentType: 'application/json',
+            data: JSON.stringify(comment),
+            success: function(response) {
+                // 서버로부터 응답을 받으면 새로운 댓글을 동적으로 추가
+                const newComment = document.createElement('div');
+                newComment.classList.add('comment-item');
+                newComment.innerHTML = `
+                    <div class="comment-header">
+                        <span class="comment-nick">${response.commentNick}</span>
+                    </div>
+                    <div class="comment-content">${response.commentText}</div>
+                `;
+
+                const commentList = document.querySelector('.comment-list');
+                commentList.appendChild(newComment);
+
+                // 입력 필드 초기화
+                const commentInput = document.querySelector('.comment-input');
+                commentInput.value = '';
+
+                // 화면 새로고침
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
+    }
+
+    // 댓글 등록 폼 제출 처리
+    $('.comment-form').submit(function(e) {
+        e.preventDefault(); // 기본 동작 방지
+
+        var commentInput = $('.comment-input');
+        var commentText = commentInput.val();
+        var boardNum = $('input[name="boardNum"]').val();
+        var commentNick = $('input[name="commentNick"]').val();
+
+        if (commentText.trim() !== '') {
+            saveComment(commentText, boardNum, commentNick);
+        }
+
+        return false;
+    });
+
+    // 댓글 삭제
+    function deleteComment(commentId) {
+        $.ajax({
+            type: 'POST',
+            url: '/deleteComment/' + commentId,
+            contentType: 'application/json',
+            data: JSON.stringify({ "commentId": commentId }),
+            success: function(response) {
+                // 삭제가 완료되면 화면에서 해당 댓글 제거
+                const commentItem = document.querySelector(`.comment-item[data-comment-id="${commentId}"]`);
+                if (commentItem) {
+                    commentItem.remove();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
+    }
+
+    // 댓글 삭제 버튼 클릭 이벤트 처리
+    $('.comment-list').on('click', '.comment-delete-btn', function() {
+        const commentId = $(this).closest('.comment-item').data('comment-id');
+        deleteComment(commentId);
+    });
+
+</script>
+</body>
+
+</html>

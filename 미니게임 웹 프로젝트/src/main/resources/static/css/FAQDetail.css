@@ -1,0 +1,244 @@
+@import url(responsive_hamburger.css);
+@import url(responsive_menu_style.css);
+
+.header {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 60px;
+}
+
+/* board-content-section css */
+.board-content-section {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 150px;
+    padding: 10px;
+}
+
+.board-table {
+    color: #333;
+    font-size: 18px;
+    width: 100%;
+    border-top: 3px solid #666;
+    border-bottom: 3px solid #666;
+}
+
+
+/* 버튼 */
+
+@-webkit-keyframes stripe-slide {
+    0% {
+        background-position: 0% 0;
+    }
+
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+@keyframes stripe-slide {
+    0% {
+        background-position: 0% 0;
+    }
+
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+
+.btn {
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    line-height: normal;
+    cursor: pointer;
+    /* -moz-user-select: text; */
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 10px 28px 16px;
+    background-color: #fff;
+    color: #666;
+    border: 2px solid #666;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    transition: all 0.5s ease;
+}
+
+.btn-box {
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-box .btn{
+    display: inline;
+    width: 33%;
+}
+
+.btn:-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+.btn--stripe {
+    overflow: hidden;
+    position: relative;
+}
+
+.btn--stripe:after {
+    content: "";
+    display: block;
+    height: 7px;
+    width: 100%;
+    background-image: repeating-linear-gradient(45deg, #666, #666 1px, transparent 2px, transparent 5px);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-top: 1px solid #666;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-size: 7px 7px;
+}
+
+.btn--stripe:hover {
+    background-color: #666;
+    color: #fff;
+    border-color: #000;
+}
+
+.btn--stripe:hover:after {
+    background-image: repeating-linear-gradient(45deg, #fff, #fff 1px, transparent 2px, transparent 5px);
+    border-top: 1px solid #000;
+    -webkit-animation: stripe-slide 12s infinite linear forwards;
+    animation: stripe-slide 12s infinite linear forwards;
+}
+
+/* 테이블 */
+.board-table {
+    color: #333;
+    font-size: 18px;
+    width: 100%;
+    border-top: 3px solid #666;
+    border-bottom: 3px solid #666;
+}
+
+.board-table a {
+    color: #333;
+    display: inline-block;
+    line-height: 1.4;
+    word-break: break-all;
+    vertical-align: middle;
+}
+
+.board-table a:hover {
+    text-decoration: underline;
+}
+
+.board-table th {
+    text-align: center;
+}
+
+.board-table .th-num {
+    width: 100px;
+    text-align: center;
+}
+
+.board-table .th-date {
+    width: 200px;
+}
+
+.board-table th,
+.board-table td {
+    padding: 14px 0;
+}
+
+.board-table tbody td {
+    border-top: 1px solid #e7e7e7;
+    text-align: center;
+}
+
+.board-table tbody th {
+    padding-left: 28px;
+    padding-right: 14px;
+    border-top: 1px solid #e7e7e7;
+    text-align: left;
+}
+
+.board-table tbody th p {
+    display: none;
+}
+
+* {
+    list-style: none;
+    text-decoration: none;
+}
+
+.clearfix:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.blind {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    margin: -1px;
+    width: 1px;
+    height: 1px;
+}
+
+.board-table {
+    background-color: white;
+}
+
+.writer-photo{
+    border-right: 1px solid #e7e7e7;
+}
+
+.board-writer td .writer-nickname{
+    
+    background-color: blue; text-align: right;
+}
+.curvy{
+    width: 100px;
+    height: 100px;
+}
+@media screen and (max-width: 992px) {
+    .footer {
+        margin-top: 240px;
+    }
+}
+@media screen and (max-width: 720px) {
+    .board-table {
+        font-size: 12px;
+        /* 기타 스타일 수정 */
+    }
+
+    .FAQ_Section h2 {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .board-table {
+        font-size: 14px;
+    }
+    .btn-box {
+        text-align: center;
+    }
+}

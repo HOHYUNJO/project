@@ -1,0 +1,58 @@
+/* @import url(responsive_menu_style.css); */
+@import url(responsive_hamburger.css);
+.header {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 60px;
+}
+
+/* profile css */
+.developer-profiles {
+    width: 1200px;
+    padding: 10px;
+    margin: 0 auto;
+    margin-top: 150px;
+    height: 20%;
+    box-sizing: border-box;
+}
+
+.developer-profile {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.profile-photo {
+    width: 15%;
+}
+
+.profile-introduction {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    box-sizing: border-box;
+}
+
+.developer-name {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 5px;
+}
+
+.introduction {
+    width: 90%;
+}
+
+a.ham{
+    color: white;
+    text-decoration: none;
+}
+
+a.ham:hover{
+    color: rebeccapurple;
+}

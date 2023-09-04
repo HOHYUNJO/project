@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="google" value="notranslate" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" th:href="@{/css/allCss.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+
+    <link rel="icon" href="/img/realLogo.png">
+    <link rel="stylesheet" type="text/css"
+          th:href="@{https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css}" />
+    <title>Main Page</title>
+</head>
+<style>
+</style>
+
+<body>
+<div class="wrapper">
+    <div class="header">
+        <!-- 햄버거 버튼 도전 구역 시작 -->
+        <nav role="navigation">
+            <div id="menuToggle">
+                <!-- 햄버거 모양 -->
+                <input type="checkbox" />
+                <div class="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <ul id="menu">
+                    <a th:href="@{/main}">
+                        <li>Home</li>
+                    </a>
+                    <a th:href="@{/boardList}">
+                        <li>Community</li>
+                    </a>
+                    <a th:href="@{/myPage}">
+                        <li>My Page</li>
+                    </a>
+                    <a th:href="@{/QnAPage}">
+                        <li>Q&A</li>
+                    </a>
+                    <a th:href="@{/aboutUs}">
+                        <li>About Us</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+        <!-- 햄버거 버튼 도전 구역 끝 -->
+
+        <div class="logo">
+            <a th:href="@{/main}"><img class="logoImg" src="img/logo.png" alt=""></a>
+        </div>
+        <div class="top-nav">
+            <ul class="top-nav-ul">
+                <li class="top-nav-li"><a th:href="@{/main}">Home</a></li>
+                <li class="top-nav-li"><a th:href="@{/boardList}">Community</a></li>
+                <li class="top-nav-li"><a th:href="@{/myPage}">My Page</a></li>
+                <li class="top-nav-li"><a th:href="@{/QnAPage}">Q&A</a></li>
+                <li class="top-nav-li"><a th:href="@{/aboutUs}">About Us</a></li>
+                <li class="drop-top-nav-li"><a href="#">Account</a>
+                    <ul class="drop-ul">
+                        <li><a th:href="@{/logout}" onclick="logout(event)">logout</a></li>
+                        <li><a href="#"><img class="imgicon" src="/img/설정.png">설정</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="carousel-section">
+        <img class="carousel-img active" src="/img/던파.jpg" alt="Carousel Image 1">
+        <img class="carousel-img" src="/img/디아3.jpg" alt="Carousel Image 2">
+        <img class="carousel-img" src="/img/배그.jpg" alt="Carousel Image 3">
+        <img class="carousel-img" src="/img/오버워치.jpg" alt="Carousel Image 4">
+        <img class="carousel-img" src="/img/블루스크린.png" alt="Carousel Image 5">
+        <img class="carousel-img" src="/img/킹볼이.jpg" alt="Carousel Image 6">
+
+        <button class="carousel-btn previous" onclick="previousSlide()">◀️</button>
+        <button class="carousel-btn next" onclick="nextSlide()">▶️</button>
+    </div>
+
+    <!-- main-section 의 시작-->
+    <div class="main-section">
+        <div class="main-section-header">
+            <div class="main-section-title">
+                <h2 class="main-section-title-text">인기게임</h2>
+            </div>
+            <div class="main-section-button">
+                <div class="main-section-buttons" onclick="showGameList('pc')">PC</div>
+                <div class="main-section-buttons" onclick="showGameList('console')">콘솔</div>
+                <div class="main-section-buttons" onclick="showGameList('mobile')">모바일</div>
+            </div>
+        </div>
+
+        <!-- game-box -->
+        <div class="popular-game-list" id="pc-game-list">
+            <div class="old-game-boxes">
+                <div th:each="gameVo : ${popularGames}" class="game-box" th:data-game-id="${gameVo.gameID}" th:onclick="'goToGameDetail(' + ${gameVo.INDEX_NO} + ')'">
+                    <img th:src="@{/img/__${gameVo.imageFileName}__}" alt="">
+                </div>
+            </div>
+            <!-- 추가한 576사이즈 미디어쿼리 -->
+            <div class="new-game-boxes">
+                <div class="new-game-box" onclick="goToGameDetail()">
+                    <a th:href="@{/gameDetail}">
+                        <img src="/img/킹볼이.jpg" alt="">
+                    </a>
+                </div>
+                <div class="new-game-box" onclick="goToGameDetail()">
+                    <a th:href="@{/gameDetail}">
+                        <img src="/img/킹볼이.jpg" alt="">
+                    </a>
+                </div>
+                <div class="new-game-box" onclick="goToGameDetail()">
+                    <a th:href="@{/gameDetail}">
+                        <img src="/img/킹볼이.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="popular-game-list" id="console-game-list" style="display: none;">
+            <div class="old-game-boxes">
+                <div class="game-box" onclick="goToGameDetail()" >
+                    <a th:href="@{/gameDetail}">
+                        <img class="game-box-img" src="/img/킹볼이.jpg">
+                    </a>
+                </div>
+                <div class="game-box" onclick="location.href='gameDetail.html'">
+                    <a th:href="@{/gameDetail}">
+                        <img class="game-box-img" src="/img/킹볼이.jpg">
+                    </a>
+                </div>
+                <div class="game-box" onclick="location.href='gameDetail.html'">
+                    <a th:href="@{/gameDetail}">
+                        <img class="game-box-img" src="/img/킹볼이.jpg">
+                    </a>
+                </div>
+            </div>
+            <div class="new-game-boxes">
+                <div class="new-game-box">
+                    <a th:href="@{/gameDetail}">
+                        <img src="/img/킹볼이.jpg" alt="">
+                    </a>
+                </div>
+                <div class="new-game-box">
+                    <a th:href="@{/gameDetail}">
+                        <img src="/img/킹볼이.jpg" alt="">
+                    </a>
+                </div>
+                <div class="new-game-box">
+                    <a th:href="@{/gameDetail.html}">
+                        <img src="/img/킹볼이.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="popular-game-list" id="mobile-game-list" style="display: none;">
+            <div class="game-box">게임7</div>
+            <div class="game-box">게임8</div>
+            <div class="game-box">게임9</div>
+        </div>
+
+        <!-- recent game list의 시작 -->
+        <div class="main-section-header">
+            <div class="main-section-title">
+                <h2 class="main-section-title-text">최신게임</h2>
+            </div>
+            <div class="main-section-button">
+                <div class="main-section-buttons" onclick="recentshowGameList('pc')">PC</div>
+                <div class="main-section-buttons" onclick="recentshowGameList('console')">콘솔</div>
+                <div class="main-section-buttons" onclick="recentshowGameList('mobile')">모바일</div>
+            </div>
+        </div>
+        <div class="recent-game-list" id="recent-pc-game-list">
+            <div class="old-game-boxes">
+                <div th:each="game : ${recentGames}" class="game-box" th:data-game-id="${game.gameID}" th:onclick="'goToGameDetail(' + ${game.INDEX_NO} + ')'">
+                    <img th:src="@{/img/__${game.imageFileName}__}" alt="">
+                </div>
+            </div>
+
+            <!-- 추가한 최근 게임 리스트의 576사이즈 미디어쿼리 -->
+            <div class="new-game-boxes">
+                <div class="new-game-box">
+                    <a th:href="@{/gameDetail.html}">
+                        <img src="/img/킹볼이.jpg" alt="">
+                    </a>
+                </div>
+                <div class="new-game-box">
+                    <a th:href="@{/gameDetail.html}">
+                        <img src="/img/킹볼이.jpg" alt="">
+                    </a>
+                </div>
+                <div class="new-game-box">
+                    <a th:href="@{/gameDetail.html}">
+                        <img src="/img/킹볼이.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="recent-game-list" id="recent-console-game-list" style="display: none;">
+            <div class="game-box">게임4</div>
+            <div class="game-box">게임5</div>
+            <div class="game-box">게임6</div>
+        </div>
+        <div class="recent-game-list" id="recent-mobile-game-list" style="display: none;">
+            <div class="game-box">게임7</div>
+            <div class="game-box">게임8</div>
+            <div class="game-box">게임9</div>
+        </div>
+        <button class="all-list-btn" onclick="location.href='allGameList'">모든 게임 보기</button>
+        <!-- 혹시 모를 심리테스트 공간..
+        <div>
+
+        </div> -->
+    </div> <!-- main-section 의 끝 -->
+
+
+    <!-- footer -->
+    <div class="footer">
+        <div class="footer-text">
+            <p>회사정보 <br>
+                상호 : 그린 컴퓨터 <br>
+                주소 : 경기도 수원시 <br>
+                개인정보관리 책임자 : 김그린 (Team2EmailService@gmail.com) <br>
+                사업자 등록번호 : 111-11-1111
+            </p>
+            <p>
+                회사소개 | 쇼핑가이드 | 개인정보보호정책 | 이용약관
+            </p>
+        </div>
+        <div class="footers">
+            <div class="footer-cs">
+                <p>
+                    근무시간 : 월 ~ 금 AM 9:00 ~ PM 7:00 <br>
+                    점심시간 : PM12 :00 ~ PM 1 : 00 <br>
+                    고객센터 : AM 10: 00 ~ PM6 : 00
+                </p>
+            </div>
+            <div class="ours">
+                <p>모든 저작권은 2팀에게 있습니다. <br>
+                    Copyright 2023. 2팀 <br>
+                    All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div> <!-- footer 끝 -->
+</div> <!-- wrapper의 끝 -->
+
+<!-- script 시작 -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    function goToGameDetail(INDEX_NO) {
+        window.location.href = "/gameDetail?INDEX_NO=" + INDEX_NO;
+    }
+
+</script>
+<script th:inline="javascript">
+    const carouselImgs = document.querySelectorAll('.carousel-img');
+    const previousBtn = document.querySelector('.carousel-btn.previous');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    let currentImgIndex = 0;
+
+    function showCurrentImg() {
+        carouselImgs.forEach((img, index) => {
+            if (index === currentImgIndex) {
+                img.classList.add('active');
+            } else {
+                img.classList.remove('active');
+            }
+        });
+    }
+
+    function showPreviousImg() {
+        currentImgIndex--;
+        if (currentImgIndex < 0) {
+            currentImgIndex = carouselImgs.length - 1;
+        }
+        showCurrentImg();
+    }
+
+    function showNextImg() {
+        currentImgIndex++;
+        if (currentImgIndex >= carouselImgs.length) {
+            currentImgIndex = 0;
+        }
+        showCurrentImg();
+    }
+
+    setInterval(showNextImg, 3000);
+
+    previousBtn.addEventListener('click', showPreviousImg);
+    nextBtn.addEventListener('click', showNextImg);
+
+    const swiper = new Swiper('.swiper-container', {
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        navigation: {
+            nextEl: '.carousel-btn.next',
+            prevEl: '.carousel-btn.previous',
+        }
+    });
+
+    function showGameList(category) {
+        const pcGameList = document.getElementById('pc-game-list');
+        const consoleGameList = document.getElementById('console-game-list');
+        const mobileGameList = document.getElementById('mobile-game-list');
+
+        switch (category) {
+            case 'pc':
+                pcGameList.style.display = 'block';
+                consoleGameList.style.display = 'none';
+                mobileGameList.style.display = 'none';
+                break;
+            case 'console':
+                pcGameList.style.display = 'none';
+                consoleGameList.style.display = 'block';
+                mobileGameList.style.display = 'none';
+                break;
+            case 'mobile':
+                pcGameList.style.display = 'none';
+                consoleGameList.style.display = 'none';
+                mobileGameList.style.display = 'block';
+                break;
+            default:
+                pcGameList.style.display = 'block';
+                consoleGameList.style.display = 'none';
+                mobileGameList.style.display = 'none';
+                break;
+        }
+    }
+
+    function recentshowGameList(category) {
+        const recentpcGameList = document.getElementById('recent-pc-game-list');
+        const recentconsoleGameList = document.getElementById('recent-console-game-list');
+        const recentmobileGameList = document.getElementById('recent-mobile-game-list');
+
+        switch (category) {
+            case 'pc':
+                recentpcGameList.style.display = 'block';
+                recentconsoleGameList.style.display = 'none';
+                recentmobileGameList.style.display = 'none';
+                break;
+            case 'console':
+                recentpcGameList.style.display = 'none';
+                recentconsoleGameList.style.display = 'block';
+                recentmobileGameList.style.display = 'none';
+                break;
+            case 'mobile':
+                recentpcGameList.style.display = 'none';
+                recentconsoleGameList.style.display = 'none';
+                recentmobileGameList.style.display = 'block';
+                break;
+            default:
+                recentpcGameList.style.display = 'block';
+                recentconsoleGameList.style.display = 'none';
+                recentmobileGameList.style.display = 'none';
+                break;
+        }
+    }
+
+//     로그아웃
+    function logout(event) {
+        event.preventDefault(); // 기본 동작 방지
+
+        const confirmed = confirm("로그아웃하시겠습니까?");
+        if (confirmed) {
+            // 서버로 로그아웃 요청을 보내는 Ajax 요청 등을 수행할 수 있습니다.
+            // 세션을 삭제하는 작업은 서버 측에서 처리되어야 합니다.
+
+            // 세션 삭제 후 로그인 페이지로 이동
+            window.location.href = "/logout";
+        }
+    }
+
+</script>
+
+</body>
+
+</html>

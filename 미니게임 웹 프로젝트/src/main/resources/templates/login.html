@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 / 회원 가입</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
+    <link rel="stylesheet" th:href="@{/css/login_style.css}">
+    <link rel="stylesheet" th:href="@{/css/allCss.css}">
+    <link rel="icon" href="/img/realLogo.png">
+    <style>
+        @media screen and (min-width: 500px) and (max-width:630px){
+            .logo img {
+                height: 60px;
+                width: 120px;
+                display: block;
+            }
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group button {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+        .form-group .input-icon.uil-check-circle,
+        .form-group .input-icon.uil-times-circle {
+            left: auto;
+            right: 0;
+        }
+
+        /*  Loading Div  */
+        @keyframes ldio-4sgnf2x4y7o-1 {
+            0% {
+                transform: rotate(0deg)
+            }
+
+            50% {
+                transform: rotate(-45deg)
+            }
+
+            100% {
+                transform: rotate(0deg)
+            }
+        }
+
+        @keyframes ldio-4sgnf2x4y7o-2 {
+            0% {
+                transform: rotate(180deg)
+            }
+
+            50% {
+                transform: rotate(225deg)
+            }
+
+            100% {
+                transform: rotate(180deg)
+            }
+        }
+
+        .ldio-4sgnf2x4y7o>div:nth-child(2) {
+            transform: translate(-15px, 0);
+        }
+
+        .ldio-4sgnf2x4y7o>div:nth-child(2) div {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            width: 120px;
+            height: 60px;
+            border-radius: 120px 120px 0 0;
+            background: #f8b26a;
+            animation: ldio-4sgnf2x4y7o-1 1s linear infinite;
+            transform-origin: 60px 60px
+        }
+
+        .ldio-4sgnf2x4y7o>div:nth-child(2) div:nth-child(2) {
+            animation: ldio-4sgnf2x4y7o-2 1s linear infinite
+        }
+
+        .ldio-4sgnf2x4y7o>div:nth-child(2) div:nth-child(3) {
+            transform: rotate(-90deg);
+            animation: none;
+        }
+
+        @keyframes ldio-4sgnf2x4y7o-3 {
+            0% {
+                transform: translate(190px, 0);
+                opacity: 0
+            }
+
+            20% {
+                opacity: 1
+            }
+
+            100% {
+                transform: translate(70px, 0);
+                opacity: 1
+            }
+        }
+
+        .ldio-4sgnf2x4y7o>div:nth-child(1) {
+            display: block;
+        }
+
+        .ldio-4sgnf2x4y7o>div:nth-child(1) div {
+            position: absolute;
+            top: 92px;
+            left: -8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #e15b64;
+            animation: ldio-4sgnf2x4y7o-3 1s linear infinite
+        }
+
+        .ldio-4sgnf2x4y7o>div:nth-child(1) div:nth-child(1) {
+            animation-delay: -0.67s
+        }
+
+        .ldio-4sgnf2x4y7o>div:nth-child(1) div:nth-child(2) {
+            animation-delay: -0.33s
+        }
+
+        .ldio-4sgnf2x4y7o>div:nth-child(1) div:nth-child(3) {
+            animation-delay: 0s
+        }
+
+        .loadingio-spinner-bean-eater-dogenimhht {
+            width: 200px;
+            height: 200px;
+            display: none;
+            overflow: hidden;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+
+
+            /*background: #ffffff;*/
+        }
+
+        .ldio-4sgnf2x4y7o {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform: translateZ(0) scale(1);
+            backface-visibility: hidden;
+            transform-origin: 0 0;
+            /* see note above */
+        }
+
+        .ldio-4sgnf2x4y7o div {
+            box-sizing: content-box;
+        }
+        .input-icon.uil-check-circle,
+        .input-icon.uil-times-circle {
+            font-size: 18px; /* 아이콘 크기 조정 */
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<a href="#" class="logo" target="_blank">
+    <img src="img/logo.png" alt="">
+</a>
+
+<div class="section">
+    <div class="container">
+        <div class="row full-height justify-content-center">
+            <div class="col-12 text-center align-self-center py-5">
+                <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                    <h6 class="mb-0 pb-3"><span>로그인</span><span>회원 가입</span></h6>
+                    <input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+                    <label for="reg-log"></label>
+                    <div class="card-3d-wrap mx-auto">
+                        <div class="card-3d-wrapper">
+                            <div class="card-front">
+                                <div class="center-wrap">
+                                    <div class="section text-center">
+                                        <h4 class="mb-4 pb-3">로그인</h4>
+                                        <form action="#" method="post" th:action="@{/login}">
+                                            <div class="form-group">
+                                                <input type="text" name="memberId" class="form-style" placeholder="아이디"
+                                                       autocomplete="off" required="required">
+                                                <i class="input-icon uil uil-user"></i>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="password" name="memberPassword" class="form-style"
+                                                       placeholder="비밀번호" autocomplete="off" required="required">
+                                                <i class="input-icon uil uil-lock-alt"></i>
+                                            </div>
+                                            <!-- 아이디 또는 비밀번호 입력 오류 메시지 -->
+                                            <div th:if="${loginIdErrorMessage}" style="color: red;">
+                                                <p th:text="${loginIdErrorMessage}"></p>
+                                            </div>
+                                            <div th:if="${loginErrorMessage}" style="color: red;">
+                                                <p th:text="${loginErrorMessage}"></p>
+                                            </div>
+                                            <button type="submit" class="btn mt-4">로그인</button>
+                                        </form>
+
+                                        <p class="mb-0 mt-4 text-center"><a href="#0" class="link">비밀번호를 잊으셨나요?</a></p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="center-wrap">
+                                    <div class="section text-center">
+                                        <h4 class="mb-4 pb-3">회원 가입</h4>
+                                        <form action="#" method="post" th:action="@{/signup}">
+                                            <div class="form-group">
+                                                <input type="text" id="memberId" name="memberId" class="form-style" placeholder="아이디" autocomplete="off" required="required" oninput="checkIdDuplicate(this.value)">
+                                                <i class="input-icon uil uil-user"></i>
+                                                <i id="duplicateIcon" class="input-icon uil"></i>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="text" name="memberName" id="memberName" class="form-style"
+                                                       placeholder="이름"
+                                                       autocomplete="off" required="required">
+                                                <i class="input-icon uil uil-user"></i>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="text" name="memberNick" class="form-style"
+                                                       placeholder="닉네임" autocomplete="off" required="required">
+                                                <i class="input-icon uil uil-user"></i>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="password" name="memberPassword" id="memberPassword"
+                                                       class="form-style"
+                                                       placeholder="비밀번호" autocomplete="off"
+                                                       oninput="validatePassword()">
+                                                <i class="input-icon uil uil-lock-alt"></i>
+                                                <div id="passwordMatchError" class="error-message"
+                                                     style="display: none"></div>
+                                                <div id="passwordValidityStatus" class="validity-message"
+                                                     style="display: none"></div>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="password" name="confirmPass" id="confirmPass"
+                                                       class="form-style"
+                                                       placeholder="비밀번호 일치 여부" autocomplete="off"
+                                                       oninput="validatePassword()">
+                                                <i class="input-icon uil uil-lock-alt"></i>
+                                                <i id="passwordMatchIcon" class="input-icon uil"></i>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="email" name="memberEmail" class="form-style" placeholder="이메일" id="emailAddress" autocomplete="off" required="required">
+                                                <i class="input-icon uil uil-at"></i>
+                                                <button type="button" class="" onclick="v_form_display()">이메일인증</button>
+                                            </div>
+                                            <div class="form-group mt-2" style="display: none;" id="verification_form">
+                                                <input type="text" id="verificationCode" name="verificationCode" class="form-style" placeholder="인증코드" autocomplete="off" required="required" style="display: none;">
+                                                <i class="input-icon uil uil-at"></i>
+                                                <button type="button" class="" onclick="verifyCode()">확인</button>
+                                            </div>
+                                            <button type="submit" class="btn mt-4">회원 가입</button>
+
+                                            <!-- Loading Div -->
+
+                                            <div class="loadingio-spinner-bean-eater-dogenimhht" id="loading_form">
+                                                <div class="ldio-4sgnf2x4y7o">
+                                                    <div>
+                                                        <div></div>
+                                                        <div></div>
+                                                        <div></div>
+                                                    </div>
+                                                    <div>
+                                                        <div></div>
+                                                        <div></div>
+                                                        <div></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script th:src="@{../static/js/login_script.js}" type="text/javascript"></script>-->
+<!--  ajax 세팅  -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
+<script th:inline="javascript">
+
+
+
+    // 이메일 인증 코드 전송 및 인증 버튼 클릭 시 이벤트 핸들러
+    function v_form_display() {
+        const loading_form = document.getElementById('loading_form');
+        const v_form = document.getElementById('verification_form');
+        const emailAddress = $("#emailAddress").val();
+
+        // 이메일이 빈칸인지 확인
+        if (emailAddress.trim() === "") {
+            Swal.fire({
+                icon: 'warning',
+                title: '이메일을 입력해주세요.',
+                text: ''
+            });
+            return;
+        }
+
+        loading_form.style.display = 'inline-block';
+
+        if(v_form.style.display !== 'none') {
+            v_form.style.display = 'none';
+        } else {
+            v_form.style.display = 'block';
+        }
+    // 이메일 인증 코드를 보낸 후에 이메일 주소 입력란을 읽기 전용으로 설정
+        document.getElementById("emailAddress").readOnly = true;
+        sendVerificationEmail();
+    }
+
+    // 이메일 인증 코드 전송 요청
+    function sendVerificationEmail() {
+        const loading_form = document.getElementById('loading_form');
+        var emailAddress = $("#emailAddress").val();
+        $.ajax({
+            url: "/emailConfirm", // EmailController에 맞게 URL 수정
+            type: "POST",
+            data: {"email": emailAddress},
+            success: function (result) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '이메일이 전송되었습니다!',
+                    text: '인증 코드를 확인해주세요.'
+                });
+                loading_form.style.display = 'none';
+                $("#verificationCode").show();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '이메일 전송에 실패하였습니다.',
+                    text: errorThrown
+                });
+                loading_form.style.display = 'none';
+            }
+        });
+    }
+
+    // 이메일 인증 코드 확인 및 인증 버튼 클릭 시 이벤트 핸들러
+    function verifyCode() {
+        var verificationCode = $("#verificationCode").val();
+
+        // 이메일 인증 코드가 비어있는지 확인
+        if (verificationCode.trim() === "") {
+            Swal.fire({
+                icon: 'warning',
+                title: '인증 코드를 입력해주세요.',
+                text: ''
+            });
+            return;
+        }
+
+        // Ajax 요청
+        $.ajax({
+            url: "/codeConfirm",
+            type: "POST",
+            data: { verificationCode: verificationCode },
+            success: function(response) {
+                if (response === "인증 성공") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '인증이 완료되었습니다!',
+                        text: '회원 가입을 진행해주세요.'
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '인증 코드가 유효하지 않습니다.',
+                        text: '다시 확인해주세요.'
+                    });
+                }
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: '인증 코드를 확인하는데 실패했습니다.',
+                    text: '다시 시도해주세요.'
+                });
+            }
+        });
+    }
+
+    // 아이디 중복 체크 함수
+    function checkIdDuplicate(memberId) {
+        $.ajax({
+            url: "/signup/checkIdDuplicate",
+            type: "GET",
+            data: {"memberId": memberId},
+            success: function (result) {
+                var duplicateIcon = $("#duplicateIcon");
+                if (result === true) {
+                    // 중복된 아이디인 경우
+                    duplicateIcon.removeClass("text-success").addClass("text-danger").removeClass("uil-check-circle").addClass("uil-times-circle");
+                } else if (result === false) {
+                    // 중복되지 않은 아이디인 경우
+                    duplicateIcon.removeClass("text-danger").addClass("text-success").removeClass("uil-times-circle").addClass("uil-check-circle");
+                } else {
+                    console.log("에러 발생");
+                }
+            }
+        });
+    }
+    //아이디 중복 체크
+    function checkIdDuplicate(memberId) {
+        $.ajax({
+            url: "/signup/checkIdDuplicate",
+            type: "GET",
+            data: {"memberId": memberId},
+            success: function (result) {
+                var duplicateIcon = $("#duplicateIcon");
+                if (result === true) {
+                    // 중복된 아이디인 경우
+                    duplicateIcon.removeClass("text-success").addClass("text-danger").removeClass("uil-check-circle").addClass("uil-times-circle");
+                } else if (result === false) {
+                    // 중복되지 않은 아이디인 경우
+                    duplicateIcon.removeClass("text-danger").addClass("text-success").removeClass("uil-times-circle").addClass("uil-check-circle");
+                } else {
+                    console.log("에러 발생");
+                }
+            }
+        });
+    }
+
+    // 아이디 중복 확인 이벤트 핸들러
+    $("#memberId").on("input", function () {
+        var memberId = $(this).val();
+        var isSignUpForm = $("#reg-log").prop("checked");
+        if (isSignUpForm && memberId) {
+            checkIdDuplicate(memberId); // 아이디 중복 확인 함수 호출
+        } else {
+            $(".input-icon.uil-check-circle").removeClass("text-success text-danger").removeClass("uil-check-circle uil-times-circle");
+            $("#duplicateResult").hide().empty();
+        }
+    });
+
+    // 비밀번호 유효형식
+    function validatePassword() {
+        var password = $("#memberPassword").val();
+        var passwordMatchError = $("#passwordMatchError");
+        var passwordValidityStatus = $("#passwordValidityStatus");
+
+        // Password validation regex pattern
+        var passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        var isValidPassword = passwordPattern.test(password);
+
+        if (!isValidPassword) {
+            passwordMatchError.text("비밀번호는 8자 이상이며, 숫자, 문자, 특수문자를 최소한 하나씩 포함해야 합니다.").show();
+            passwordValidityStatus.text("").hide();
+        } else {
+            passwordMatchError.hide();
+            passwordValidityStatus.text("비밀번호 형식이 유효합니다.").show();
+        }
+    }
+    // 비밀번호와 확인 비밀번호가 일치하는지 확인하는 함수
+    function checkPasswordConfirmation() {
+        var password = $("#memberPassword").val();
+        var confirmPass = $("#confirmPass").val();
+        var passwordMatchIcon = $("#passwordMatchIcon");
+
+        if (password === confirmPass) {
+            passwordMatchIcon.removeClass("text-danger").addClass("text-success").removeClass("uil-times-circle").addClass("uil-check-circle");
+        } else {
+            passwordMatchIcon.removeClass("text-success").addClass("text-danger").removeClass("uil-check-circle").addClass("uil-times-circle");
+        }
+    }
+    //비밀번호 일치여부 이벤트(아이콘)
+    $(document).ready(function () {
+        $("#memberPassword").on("input", function () {
+            validatePassword();
+            checkPasswordConfirmation();
+        });
+
+        $("#confirmPass").on("input", function () {
+            checkPasswordConfirmation();
+        });
+    });
+
+
+
+    $("form").on("submit", function (e) {
+        var isSignUpForm = $("#reg-log").prop("checked");
+
+        if (isSignUpForm) {
+            var memberId = $("#memberId").val();
+            var password = $("#memberPassword").val();
+            var confirmPass = $("#confirmPass").val();
+            var isUsernameValid = false;
+            var isPasswordValid = false;
+
+            // Check if the username is duplicated
+            $.ajax({
+                url: "/signup/checkIdDuplicate",
+                type: "GET",
+                data: {"memberId": memberId},
+                async: false, // Make the request synchronous
+                success: function (result) {
+                    if (result === true) {
+                        isUsernameValid = false;
+                    } else if (result === false) {
+                        isUsernameValid = true;
+                    } else {
+                        console.log("에러 발생");
+                    }
+                }
+            });
+
+            // Validate password
+            var passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+            var isValidPassword = passwordPattern.test(password);
+            if (!isValidPassword) {
+                isPasswordValid = false;
+            } else {
+                isPasswordValid = true;
+            }
+
+
+            // 폼 제출 할때 비밀번호와 확인 비밀번호가 일치하는지 확인하기
+            var doPasswordsMatch = password === confirmPass;
+
+            if (!isUsernameValid || !isPasswordValid || !doPasswordsMatch) {
+                e.preventDefault(); // Prevent form submission
+                var errorMessage = "";
+                if (!isUsernameValid) {
+                    errorMessage += "중복된 아이디입니다. 다른 아이디를 입력해주세요.\n";
+                }
+                if (!isPasswordValid) {
+                    errorMessage += "비밀번호는 8자 이상이며, 숫자, 문자, 특수문자를 최소한 하나씩 포함해야 합니다.\n";
+                }
+                if (!doPasswordsMatch) {
+                    errorMessage += "비밀번호가 일치하지 않습니다.\n";
+                }
+                alert(errorMessage);
+            }
+        }
+    });
+</script>
+</body>
+</html>

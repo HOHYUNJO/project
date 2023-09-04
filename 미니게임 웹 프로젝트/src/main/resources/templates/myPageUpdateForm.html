@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="google" value="notranslate" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" th:href="@{/css/allCss.css}">
+    <link rel="stylesheet" th:href="@{/css/myPageUpdate.css}">
+    <link rel="stylesheet" th:href="@{/css/hamburger.css}" />
+    <link rel="icon" href="/img/realLogo.png">
+    <link rel="stylesheet" type="text/css"
+          th:href="@{https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css}" />
+    <title>My Page Update</title>
+    <style>
+        .form-input {
+            width: 350px;
+            padding: 20px;
+            background: #fff;
+            border: 2px dashed #555;
+            margin: 0 auto;
+        }
+
+        .form-input input {
+            display: none;
+        }
+
+        .form-input label {
+            display: block;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background: #333;
+            color: #fff;
+            font-size: 15px;
+            font-family: "Open Sans", sans-serif;
+            text-transform: Uppercase;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .form-input img {
+            width: 100%;
+            display: none;
+            margin-top: 10px;
+        }
+
+         .preview {
+             width: 100%; /* 적절한 높이 설정 */
+             height: 400px;
+         }
+
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="welcome">
+        <p th:text="${session.memberNick} + '님, Mini Game World에 오신 것을 환영합니다.🐱‍🐉'"></p>
+    </div>
+    <div class="header">
+        <nav role="navigation">
+            <div id="menuToggle">
+                <!-- 햄버거 모양 -->
+                <input type="checkbox" />
+                <div class="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+
+                <ul id="menu">
+                    <a th:href="@{/main}">
+                        <li>Home</li>
+                    </a>
+                    <a th:href="@{/boardList}">
+                        <li>Community</li>
+                    </a>
+                    <a th:href="@{/myPage}">
+                        <li>My Page</li>
+                    </a>
+                    <a th:href="@{/QnAPage}">
+                        <li>Q&A</li>
+                    </a>
+                    <a th:href="@{/aboutUs}">
+                        <li>About Us</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+        <div class="logo">
+            <a th:href="@{/main}"><img class="logoImg" th:src="@{/img/logo.png}" alt=""></a>
+        </div>
+        <div class="top-nav">
+            <ul class="top-nav-ul">
+                <li class="top-nav-li"><a th:href="@{/main}">Home</a></li>
+                <li class="top-nav-li"><a th:href="@{/boardList}">Community</a></li>
+                <li class="top-nav-li"><a th:href="@{/myPage}">My Page</a></li>
+                <li class="top-nav-li"><a th:href="@{/QnAPage}">Q&A</a></li>
+                <li class="top-nav-li"><a th:href="@{/aboutUs}">About Us</a></li>
+                <li class="drop-top-nav-li"><a href="#">Account</a>
+                    <ul class="drop-ul">
+                        <li><a th:href="@{/logout}" onclick="logout(event)">logout</a></li>
+                        <li><a href="#"><img class="imgicon" src="/img/설정.png">설정</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div> <!-- header 끝 -->
+
+    <!-- UpdateMyPage 시작 -->
+    <div class="UpdateMyInfo">
+        <div class="profile">
+            <div class="">
+                <div class="form-input">
+                    <form id="uploadForm" th:action="@{/uploadProfileImage}" method="post" enctype="multipart/form-data">
+                        <label for="fileInput">Upload Image</label>
+                        <input type="file" id="fileInput" name="image" accept="image/*" onchange="showPreview(event)">
+                        <input type="submit" value="Upload" onclick="uploadImage(event)">
+                    </form>
+                    <div class="preview">
+                        <!-- 미리보기를 표시할 img 요소 추가 -->
+                        <img id="fileInputPreview" style="display: none;" />
+                        <!-- 프로필 이미지가 없는 경우 기본 이미지 출력 -->
+                        <img th:if="${authInfo.profileImage == null}" th:src="@{/img/Dot_curvy.png}" id="currentProfileImage" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="info">
+            <form th:action="@{/updateMyPage}" method="post">
+                <input type="text" id="memberName" name="memberName" th:value="${authInfo.memberName}"
+                       th:hidden="hidden" />
+                <div>
+                    <label for="memberId">
+                        <i class="material-icons">아이디</i>
+                    </label>
+                    <input type="text" id="memberId" name="memberId" th:placeholder="${authInfo.memberId}"
+                           th:value="${authInfo.memberId}" th:readonly="readonly" />
+                    <span class="underline"></span>
+                </div>
+
+                <div>
+                    <label for="memberNick">
+                        <i class="material-icons">닉네임</i>
+                    </label>
+                    <input type="text" id="memberNick" name="memberNick" th:value="${authInfo.memberNick}">
+                    <span class="underline"></span>
+                </div>
+
+                <div>
+                    <label for="memberPassword">
+                        <i class="material-icons">새 비밀번호</i>
+                    </label>
+                    <input type="password" id="memberPassword" name="memberPassword"
+                           th:value="${authInfo.memberPassword}" th:hidden="hidden" />
+                    <input type="password" id="newPassword" name="newPassword" placeholder="새 비밀번호"
+                           onkeyup="checkPasswordMatch()" />
+                    <span class="underline"></span>
+                </div>
+
+                <div>
+                    <label for="confirm-password">
+                        <i class="material-icons">비밀번호 확인</i>
+                        <input type="password" id="confirm-password" placeholder="비밀번호 확인"
+                               onkeyup="checkPasswordMatch()">
+                        <span class="underline"></span>
+                        <div id="passwordMatchMessage"></div>
+                    </label>
+                </div>
+
+                <div>
+                    <label for="email">
+                        <i class="material-icons">이메일</i>
+                        <input type="email" id="email" name="memberEmail" th:value="${authInfo.memberEmail}">
+                        <span class="underline"></span>
+                    </label>
+                </div>
+                <div class="btn-move">
+                    <button class="btn btn--stripe right left" type="button"
+                            onclick="location.href='myPage'">취소</button>
+                    <button class="btn btn--stripe right" type="submit">수정</button>
+                </div>
+            </form>
+            <!-- 비밀번호 확인 후 정보 수정 가능하게 구현 -->
+        </div>
+    </div>
+
+    <!-- footer 태그 내용 (생략) -->
+</div> <!-- wrapper의 끝 -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    function showPreview(event) {
+        var fileInput = event.target;
+        var file = fileInput.files[0];
+        var fileInputPreview = document.getElementById("fileInputPreview");
+
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                fileInputPreview.src = e.target.result;
+                fileInputPreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        } else {
+            fileInputPreview.style.display = "none";
+        }
+    }
+    // 로그아웃
+    function logout(event) {
+        event.preventDefault(); // 기본 동작 방지
+
+        const confirmed = confirm("로그아웃하시겠습니까?");
+        if (confirmed) {
+            // 서버로 로그아웃 요청을 보내는 Ajax 요청 등을 수행할 수 있습니다.
+            // 세션을 삭제하는 작업은 서버 측에서 처리되어야 합니다.
+
+            // 세션 삭제 후 로그인 페이지로 이동
+            window.location.href = "/logout";
+        }
+    }
+
+    function checkPasswordMatch() {
+        var password = $("#newPassword").val();
+        var confirmPassword = $("#confirm-password").val();
+
+        if (password === confirmPassword) {
+            $("#passwordMatchMessage").text("비밀번호가 일치합니다.").css("color", "green");
+        } else {
+            $("#passwordMatchMessage").text("비밀번호가 일치하지 않습니다.").css("color", "red");
+        }
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+      *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body{
+        /*background-image: url("../static/img/배경사진.png");*/
+        background-color: rgba(169, 164, 164, 0.82);
+      }
+      .main{
+        width: 100%;
+        margin: 0 auto;
+      }
+      .logoImg{
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+        /*margin-top: 30px;*/
+        border-radius: 150px;
+        /*display: inline-block;*/
+      }
+      .LogoH1{
+          margin-top: -10px;
+        /*display: inline-block;*/
+        /*margin-top: 2.5px;*/
+        /*vertical-align: top;*/
+        /*position: relative;*/
+        /*top: -38px;*/
+        /*left: 0px;*/
+        height: 100%;
+        font-size: 2.2em;
+      }
+      .Logo-area{
+        width: 100%;
+        /*height: 120px;*/
+        margin-top: 15px;
+        /*border: 1px solid black;*/
+        text-align: center;
+      }
+      .Contents{
+        border: 1px solid black;
+        /*margin-top: 30px;*/
+        width: 820px;
+        margin: 30px auto 0 auto;
+        background-color: rgba(211, 209, 209, 0.75);
+        /*height: 700px;*/
+        padding: 20px;
+      }
+      .codeBox{
+        /*border: 2px solid #fff;*/
+        border-radius: 5px;
+        padding: 22px 2px 22px 2px;
+        width: 220px;
+        margin: 15px auto;
+        background: linear-gradient(270deg, #00daef, #bc67ff);
+      }
+      #verificationCode{
+        text-align: center;
+          color: #fff;
+      }
+      .vertical-Line{
+        border: 3px #929aa3 solid;
+        border-radius: 3px;
+        width: 98%;
+        margin: 20px auto;
+      }
+      .warning-text{
+        color: red;
+        font-weight: bold;
+        font-size: 9pt;
+      }
+      .emailTag{
+          font-size: 9pt;
+          color: rgb(98, 45, 45);
+      }
+      .alert-message{
+          font-size: 11pt;
+          font-weight: 700;
+          margin-bottom: 1.5px;
+      }
+      .custom_Atag{
+          color: rgb(98,45,45);
+      }
+      .custom_Atag:hover{
+          cursor: pointer;
+      }
+    </style>
+</head>
+<body>
+  <div class="main">
+    <div class="Logo-area">
+      <img class="logoImg" src="https://i.pinimg.com/originals/64/2a/f0/642af038ade1177eea36aab98a9e546b.jpg">
+      <h1 class="LogoH1">MiniGameWorld!</h1>
+    </div>
+    <div class="Contents">
+      <h2 style="margin-bottom: 15px;">안녕하세요 {To} 님!</h2>
+      <p style="margin-bottom: 1.5px;">저희 MiniGameWorld에 가입해 주셔서 감사합니다!</p>
+      <p style="margin-bottom: 1.5px;">시작하기전! 본인 확인을 위해 아래의 인증코드를 이메일확인란에 입력해주세요 :)</p>
+      <p class="warning-text">*운영자는 인증코드를 요구하지않습니다.</p>
+      <div class="codeBox">
+        <h2 id="verificationCode">verificationCode</h2>
+      </div>
+      <div class="vertical-Line"></div>
+      <p class="alert-message">도움이 필요하신가요? <span class="emailTag">Team2EamilService@gmail.com</span> 으로 문의해주세요!</p>
+      <p class="alert-message">피드백을 주고 싶으신가요? 저희의 <a class="custom_Atag" onclick="alert('준비중!')">피드백 사이트</a>에서 당신의 생각을 들려주세요!</p>
+      <p class="alert-message">개인정보관리 책임자 : 조호현 (Team2EmailService@gmail.com)</p>
+      <p class="alert-message">근무시간: 월 ~ 금 9:00 ~ 19:00 | 점심시간 : 12:00 ~ 13:00</p>
+    </div>
+  </div>
+</body>
+</html>

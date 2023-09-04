@@ -1,0 +1,685 @@
+@import url(responsive_menu_style.css);
+@import url(responsive_hamburger.css);
+
+/* carousel css */
+.carousel-section {
+    padding-top: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    position: relative;
+    margin-top: -25px;
+}
+
+.carousel-img {
+    display: none;
+    width: 1200px;
+    height: 580px;
+    margin: 0 auto;
+}
+
+.carousel-img.active {
+    display: block;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 25px;
+    color: white;
+    background-color: #08080880;
+    padding: 155px 5px 155px 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 75px;
+}
+
+.carousel-btn:hover {
+    background-color: #18181880;
+}
+
+.carousel-btn.previous {
+    left: 300px;
+}
+
+.carousel-btn.next {
+    right: 300px;
+}
+
+/* main-section css */
+.main-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.main-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* border: 1px solid pink; */
+    width: 1200px;
+    margin-top: 20px;
+}
+
+.main-section-title {
+    width: 1200px;
+}
+
+.main-section-title-text {
+    /* border: 1px solid purple; */
+    width: 140px;
+    font-size: 35px;
+}
+
+.main-section-button {
+    display: flex;
+}
+
+.main-section-buttons {
+    width: 80px;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+.main-section-button>div {
+    margin-left: 10px;
+    border: 2px solid white;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 20px;
+}
+
+.main-section-button>div:hover {
+    background-color: #98969b;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.popular-game-list,
+.recent-game-list {
+    /* border: 3px solid rgb(148, 151, 156); */
+    border: 2px solid white;
+    width: 1200px;
+    margin-top: 10px;
+}
+
+/* game-box css */
+.game-box {
+    /* border: 2px solid rgb(148, 151, 156); */
+    border: 2px solid white;
+    float: left;
+    width: 350px;
+    height: 250px;
+    margin: 20px;
+    padding-left: 5px;
+    border-radius: 30px;
+    position: relative;
+    display: block;
+    transition: transform 0.3s ease-in-out;
+
+}
+
+.game-box:hover {
+    transform: scale(1.1);
+}
+
+.game-box-img {
+    width: 102%;
+    height: 100%;
+    border-radius: 30px;
+    margin-left: -6px;
+    background-color: rgba(255, 255, 255, 0);
+    /* transition: transform 0.5s ease; */
+}
+
+.game-box:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(29, 28, 28, 0.466);
+    border-radius: 30px;
+}
+.game-box img{
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+}
+.game-box:hover::after {
+    content: attr(data-game-id);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25px;
+    color: white;
+    text-align: center;
+    white-space: pre-wrap;
+    width: 99%;
+    border-radius: 22px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: grid;
+    place-items: center;
+}
+
+/* 트랜지션 일단 주석처리 */
+/* .game-box-img:hover {
+    transform: scale(1.05);
+} */
+
+.game-box a {
+    text-decoration: none;
+    color: white;
+    /* border: 1px solid red; */
+    width: 100%;
+    display: inline-block;
+    height: 100%;
+}
+
+.game-box:hover {
+    cursor: pointer;
+}
+
+/* btn css */
+.all-list-btn {
+    font-size: 22px;
+    border-radius: 30px;
+    padding: 17px;
+    width: 200px;
+    margin-top: 40px;
+    font-weight: 600;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.all-list-btn a {
+    text-decoration: none;
+    color: black;
+}
+
+.all-list-btn:hover {
+    background-color: #98969b;
+    color: #ffffff;
+}
+.new-game-boxes{
+    display: none;
+}
+.games{
+    display: none;
+}
+.old-game-boxes{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 300px;
+}
+.new-game-box a img{
+    display: none;
+}
+.recent-games{
+    width: 100%;
+}
+.recent-games img{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    margin-left: -2px;
+}
+.header{
+    transform: translateX(-50%);
+}
+
+/* Media Queries */
+@media screen and (max-width: 1366px) {
+    .carousel-btn.previous {
+        left: 0.5%;
+    }
+
+    .carousel-btn.next {
+        right: 0.5%;
+    }
+    .new-game-boxes{
+        display: none;
+    }
+    .games{
+        display: none;
+    }
+    .old-game-boxes{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        height: 300px;
+    }
+    .new-game-box a img{
+        display: none;
+    }
+    .recent-games{
+        width: 100%;
+    }
+    .recent-games img{
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        margin-left: -2px;
+    }
+    .header{
+        transform: translateX(-50%);
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .carousel-img {
+        max-width: 1000px;
+    }
+
+    .carousel-btn.previous {
+        left: 2.5%;
+    }
+
+    .carousel-btn.next {
+        right: 2.5%;
+    }
+
+    .main-section{
+        width: 90%;
+        margin: 0 auto;
+    }
+    .main-section-header{
+        width: 100%;
+        
+    }
+    .main-section-title-text{
+        font-size: 30px;
+    }
+    .popular-game-list , .recent-game-list {
+        width: 100%;
+        display: flex;
+    }
+    
+    .new-game-box a img{
+        display: none;
+    }
+    
+    .game-box{
+        width: 31%;
+        height: 80%;
+        margin: 0 auto;
+        margin-top: 25px;
+    }
+
+    .old-game-boxes{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        height: 300px;
+    }
+    .new-game-box a img{
+        display: none;
+    }
+    .recent-games{
+        width: 100%;
+    }
+    .recent-games img{
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        margin-left: -2px;
+    }
+    .header{
+        transform: translateX(-50%);
+    }
+}
+
+@media screen and (max-width: 992px) {
+   .carousel-img {
+        max-width: 800px;
+    }
+    .header{
+        transform: translateX(-50%);
+    }
+    .top-nav{
+        width: 100%;
+    }
+    .header{
+        width: 800px;
+    }
+    .drop-ul{
+        margin-left: -65px;
+    }
+
+    .main-section{
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .main-section-header{
+        width: 100%;
+        
+    }
+    .main-section-title-text{
+        font-size: 30px;
+    }
+    .popular-game-list , .recent-game-list {
+        width: 100%;
+    }
+    .game-box{
+        width: 30%;
+        height: 80%;
+        margin: 0 auto;
+        margin-top: 25px;
+    }
+    
+    .old-game-boxes{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        height: 300px;
+    }
+    .new-game-box a img{
+        display: none;
+    }
+    .recent-games{
+        width: 100%;
+    }
+    .recent-games img{
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        margin-left: -2px;
+    }
+    
+    /* footer */
+    .footer {
+        margin-top: 200px;
+        bottom: 0;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        box-sizing: border-box;
+        background-color: #0d1114;
+    }
+    
+    .footer-text {
+        /* border: 1px solid purple; */
+        text-align: center;
+        width: 30%;
+        height: 100%;
+        padding: 9px;
+        display: none;
+    }
+    
+    .footers {
+        /* border: 1px solid gray; */
+        height: 100%;
+    }
+    
+    .footer-cs {
+        /* border: 1px solid green; */
+        text-align: center;
+        display: none;
+    }
+    
+    .ours {
+        text-align: center;
+        width: 110%;
+        /* border: 1px solid blue; */
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    .carousel-img {
+        max-width: 600px;
+    }
+
+    .new-game-box a img{
+        display: none;
+    }
+    .game-box{
+        width: 31.5%;
+        margin: 0 auto;
+    }
+    .main-section {
+        margin-top: 30px;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .main-section-button {
+        width: 40%;
+        height: 100%;
+        display: none;
+    }
+    
+    .all-list-btn{
+        font-size: 1.2em;
+        font-weight: 700;
+        width: 30%;
+    }
+
+    /* 추가한 부분 */
+    .old-game-boxes{
+        display: none;
+    }
+
+    .new-game-boxes{
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    .new-game-box{
+        display: block;
+        width: 100%;
+    }
+    
+    .new-game-box a img{
+        display: block;
+        width: 100%;
+        margin-bottom:30px;
+    }
+    .new-game-box:first-child {
+        margin-top: 30px;
+    }
+
+    /* footer */
+    .footer {
+        margin-top: 200px;
+        bottom: 0;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        box-sizing: border-box;
+        background-color: #0d1114;
+    }
+    
+    .footer-text {
+        /* border: 1px solid purple; */
+        text-align: center;
+        width: 30%;
+        height: 100%;
+        padding: 9px;
+        display: none;
+    }
+    
+    .footers {
+        width: 30%;
+        height: 100%;
+    }
+    
+    .footer-cs {
+        /* border: 1px solid green; */
+        text-align: center;
+        display: none;
+    }
+    
+    .ours {
+        text-align: center;
+        /* border: 1px solid blue; */
+    }
+    
+    /* hover */
+    .new-game-box {
+        position: relative;
+    }
+    
+    .new-game-box a:hover::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(29, 28, 28, 0.466);
+    }
+    
+    .new-game-box a:hover::after {
+        content: '안녕하세요 저는 킹볼이에요. 게임을 하고 싶으시면 눌러주세요!!';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        color: white;
+        text-align: center;
+        white-space: pre-wrap;
+        width: 90%;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
+    .carousel-img {
+        margin-top: 50px;
+        max-width: 530px;
+    }
+
+    .carousel-btn.previous {
+        display: none;
+    }
+
+    .carousel-btn.next {
+        display: none;
+    }
+
+    .main-section {
+        margin-top: 30px;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .main-section-button {
+        width: 40%;
+        height: 100%;
+        display: none;
+    }
+    
+    .all-list-btn{
+        font-size: 1.2em;
+        font-weight: 700;
+        width: 40%;
+    }
+
+    /* 추가한 부분 */
+    .old-game-boxes{
+        display: none;
+    }
+
+    .new-game-boxes{
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .new-game-box{
+        display: block;
+        width: 100%;
+    }
+    
+    .new-game-box a img{
+        display: block;
+        width: 100%;
+        margin-bottom:30px;
+    }
+    .new-game-box:first-child {
+        margin-top: 30px;
+    }
+    
+
+    /* footer */
+    .footer {
+        margin-top: 200px;
+        bottom: 0;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        box-sizing: border-box;
+        background-color: #0d1114;
+    }
+    
+    .footer-text {
+        /* border: 1px solid purple; */
+        text-align: center;
+        width: 30%;
+        height: 100%;
+        padding: 9px;
+        display: none;
+    }
+    
+    .footers {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+    
+    .footer-cs {
+        text-align: center;
+        display: none;
+    }
+    
+    .ours {
+        text-align: center;
+        width: 100%;
+    }
+    /* hover */
+    .new-game-box {
+        position: relative;
+    }
+    
+    .new-game-box a:hover::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(29, 28, 28, 0.466);
+    }
+    
+    .new-game-box a:hover::after {
+        content: '안녕하세요 저는 킹볼이에요. 게임을 하고 싶으시면 눌러주세요!!';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        color: white;
+        text-align: center;
+        white-space: pre-wrap;
+        width: 90%;
+    }
+}
