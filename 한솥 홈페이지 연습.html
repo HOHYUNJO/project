@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>한솥도시락</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<link rel="icon" href="img/m_h1_logo.png">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<style>
+		*{margin: 0;
+		padding: 0;}
+		body{
+			width: 100%;
+			overflow-x: hidden;
+		}
+		#wrapper{
+			font-family: 'Noto Sans KR', sans-serif;
+			width: 100%;
+		}
+		ul li, ol li{
+			list-style: none;
+		}
+		/*p,section,div, li, span{
+			border:1px solid red;
+		}*/
+		a{
+			text-decoration: none;
+		}
+
+		/*로그인*/
+		#wrapper>p#login{
+			width: 60%;
+			position: absolute;
+			top:5px;
+			left:20%;			
+		}
+		#wrapper>p#login span{
+			float: right;
+		}
+		#wrapper>p#login span a{
+			color:white;
+		}
+		#wrapper>p#login span:first-child a{
+			 width: 28px;
+			 height: 28px;
+			 display: block;
+			 float: left;
+			 margin-right: 5px;
+		}
+		#wrapper>p#login span:first-child a:nth-child(1){
+			background: url(img/icon_sns_01.png) no-repeat -56px 0;
+		}
+		#wrapper>p#login span:first-child a:nth-child(2){
+			background: url(img/icon_sns_01.png) no-repeat -84px 0;
+		}
+		#wrapper>p#login span:nth-child(2)::before, #wrapper>p#login span:nth-child(2)::after{
+			content:"|";
+			margin:10px;
+			color:white;
+		}
+
+		/*.desktopGnb1 네비*/
+		nav.desktopGnb1, nav.desktopGnb2{
+			background-color: white;
+			width: 60%;
+			height: 100px;
+			position: absolute;
+			top:40px;
+			z-index: 9999;
+			left:20%;
+			padding: 0 20px;
+		}
+		nav.desktopGnb2{
+			width: 100%;
+			background-color: #0B0A0A;
+			top:0;
+			left: 0;
+			height: 60px;
+			position: fixed;
+			z-index: 99999;
+
+		}
+
+		nav.desktopGnb1 li{
+			float: left;
+			width: 13%;
+			height: 100px;
+			box-sizing: border-box;
+			line-height: 100px;
+			text-align: center;
+		}
+		nav.desktopGnb2 li{
+			float: left;
+			width: 13%;
+			height: 60px;
+			text-align: center;
+			line-height: 60px;
+		}
+		nav.desktopGnb1 li a, nav.desktopGnb2 li a{
+			display: block;
+			width: 100%;
+			height: 100%;
+			font-weight: bold;
+			color:black;
+			font-size: 14px;
+			text-transform: uppercase;
+		}
+		nav.desktopGnb2 li a{
+			color: white;
+		}
+		nav.desktopGnb1 li:hover a{
+			color:#FDC447;
+		}
+		nav.desktopGnb2 li:hover a, nav.desktopGnb2 li.active a{
+			color:#FDC447;
+			transition: 1s;
+		}
+		 nav.desktopGnb2 li.active a::after, nav.desktopGnb2 li:hover a::after{
+		 	content: " ";
+		 	border-bottom: 6px solid #FDC447;
+		 	display: block;
+		 	position: relative;
+		 	top: -5px;
+		 	width: 50px;
+		 	margin: 0 auto;
+		 }
+		nav.desktopGnb1 li h1, nav.desktopGnb2 li h1{
+			text-indent: -9999px;
+			background: url(img/h1_logo.png) no-repeat center;
+			background-size: 70%;
+		}
+		nav.desktopGnb2 li h1{
+			background: url(img/bg_w_h1_logo.png) no-repeat center;
+			width: 30px;
+			height: 30px;
+			background-size: contain;
+			margin: 12px auto;
+		}
+		nav.desktopGnb2 li:last-child a{
+			display: none;
+		}
+		/*캐로셀 #brand*/
+		section#brand.carousel{
+			width: 100%;
+			height: 650px;
+			position: relative;
+		}
+		section#brand.carousel .gallery li{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left:0;
+			top:0;
+		}
+		section#brand.carousel .gallery li:nth-child(1){
+			background: url(img/carousel_01.jpg) center;
+		}
+		section#brand.carousel .gallery li:nth-child(2){
+			background: url(img/carousel_02.jpg) center;
+		}
+		section#brand.carousel .gallery li:nth-child(3){
+			background: url(img/carousel_03.jpg) center;
+		}
+		section#brand.carousel .gallery li:nth-child(4){
+			background: url(img/carousel_04.jpg) center;
+		}
+		section#brand.carousel .gallery li:nth-child(5){
+			background: url(img/carousel_05.jpg) center;
+		}
+		section#brand.carousel .gallery li:nth-child(6){
+			background: url(img/carousel_06.jpg) center;
+		}
+		/*캐로셀 버튼*/
+		section#brand.carousel div.carousel_btn{
+			position: absolute;
+			width: 70%;
+			height: 200px;
+			left:20%;
+			bottom:0;
+		}
+		section#brand.carousel div.carousel_btn ul.btn{
+			position: absolute;
+			left:10px;
+			width: 400px;
+			height: 50px;
+			bottom: 30px;
+		}
+		section#brand.carousel div.carousel_btn ul.btn li{
+			width: 45px;
+			height: 8px;
+			background: #BDBCBC;
+			float: left;
+			margin: auto 3px;
+			cursor: pointer;
+			text-indent: -9999px;
+		}
+		section#brand.carousel div.carousel_btn ul.btn li:hover, section#brand.carousel div.carousel_btn ul.btn li.active{
+			background-color: #FFB900
+		}
+		section#brand.carousel div.carousel_btn ul.btn li.pause{
+			width: 45px;
+			height: 45px;
+			background: url(img/icon_play.png);
+			background-size: 90px;
+			position: relative;
+			bottom: 20px;
+		}
+		section#brand.carousel div.carousel_btn ul.btn li.play{
+			width: 45px;
+			height: 45px;
+			background: url(img/icon_play.png);
+			background-size: 90px;
+			position: relative;
+			bottom: 20px;
+			background-position: -45px;
+			display: none;
+		}
+
+		/*두번째 컨텐츠 #menu*/
+		section#menu, section#story, section#ingredients, section#more{
+			width: 60%;
+			height: 500px;
+			position: relative;
+			margin:60px auto;
+		}
+		section#menu div.content, section#story div.content{
+			width: 48%;
+			height: 100%;
+			float: left;
+			background-color: #E8E7E7;
+			margin:0 1%;
+			box-sizing: border-box;
+			cursor: pointer;
+			border-bottom: 5px solid #5E5E5E;
+			transition:border-bottom 0.5s;
+		}
+		section#menu div.content:hover, section#story div.content:hover{
+			border-bottom: 5px solid #FFB400;
+		}
+		section#menu div.content div.img, section#story div.content div.img{
+			width: 100%;
+			height: 300px;
+			background: url(img/main_img_01.jpg) no-repeat center;
+			background-size: cover;
+		}
+		section#menu div.content:nth-child(2) div.img{
+			background: url(img/main_img_02.jpg) no-repeat center;
+		}
+		section#menu div.content p, section#story div.content p{
+			padding: 20px;
+			font-size: 1.3em;
+		}
+		section#menu div.content span.play_btn, section#story div.content span.play_btn, section#ingredients div.content span.play_btn{
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			background: url(img/btn_link.png);
+			background-size: 40px;
+			margin: 5px 10px 5px 20px;
+			transition:background-position 0.5s;
+		}
+		section#menu div.content:hover span.play_btn, section#story div.content:hover span.play_btn, section#ingredients div.content:hover span.play_btn{
+			background-position: -20px;
+
+		}
+		section#menu div.content span.play_btn+span, section#story div.content span.play_btn+span{
+			position: relative;
+			top:-10px;
+		}
+
+		/*세번째 컨텐츠 #story*/
+		section#story div.content{
+			width: 33%;
+		}
+		section#story div.content:nth-child(1){
+			width: 28%;
+			background-color: #FFBA02;
+			padding:30px;
+		}
+		section#story div.content:nth-child(1) p{
+			padding:30px 0;
+			font-size: 1.8em;
+			font-weight: bold;
+		}
+		section#story div.content:nth-child(1) p::after, section#philosophy div.content p::after, section#ingredients .content p.title::after{
+			content: "";
+			width: 40px;
+			height: 4px;
+			background-color: black;
+			display: block;
+			margin-top: 30px;
+		}
+		section#story div.content:nth-child(2) div.img{
+			background: url(img/main_img_03.jpg) no-repeat;
+			background-size: 100%;
+		}
+		section#story div.content:nth-child(3) div.img{
+			background: url(img/main_img_04.jpg) no-repeat;
+			background-size: 100%;
+		}
+
+		/*네번째 컨텐츠 #philosophy*/
+		section#philosophy{
+			width: 100%;
+			height: 650px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		section#philosophy>div.bg{
+			width: 100%;
+			height: 100%;
+			background: url(img/main_visual_02.jpg) no-repeat center;
+			background-size: cover;
+			transition:transform 5s;
+			/*transition:all 5s;*/
+			position: absolute;
+		}
+		section#philosophy>div.bg:hover{
+			transform: scale(1.1);
+		} 
+		section#philosophy div.content{
+			width: 370px;
+			height: 100%;
+			background-color: #2C2B2B;
+			position: absolute;
+			opacity: 0.9;
+			color:white;
+			padding:80px 30px;
+			left:50%;
+			margin-left: -550px;
+		}
+		section#philosophy div.content p, section#ingredients .content p.title{
+			font-size: 2.2em;
+			font-weight:700;
+		}
+		section#philosophy div.content p::after{
+			background-color: white;
+			margin-bottom: 30px;
+		}
+		section#philosophy div.btn{
+			border:2px solid white;
+			width: 170px;
+			height: 60px;
+			text-align: center;
+			line-height: 60px;
+			margin-top: 100px;
+			cursor: pointer;
+		}
+		section#philosophy div.btn:hover{
+			background-color: white;
+			color:black;
+			height: 450px;
+		}
+
+
+		/*다섯번째 컨텐츠 #indgredient*/
+		section#ingredients div.bg{
+			background:url(img/main_img_05.jpg) left center;
+			width: 80%;
+			height: 100%;
+			position: absolute;
+			left:0;
+			background-size: cover;
+		}
+		section#ingredients .content{
+			width: 380px;
+			height: 100%;
+			position: absolute;
+			right:0;
+			background-color: #E5E5E5;
+			padding: 30px;
+			box-sizing: border-box;
+		}
+		section#ingredients .content span.paragraph{
+			position: relative;
+			top:20px;
+		}
+		section#ingredients .content div{
+			position: absolute;
+			bottom: 20px;
+		}
+		section#ingredients .content .play_btn+span{
+			position: relative;
+			top:-10px;
+		}
+		section#ingredients .content{
+			border-bottom: 5px solid #524E4E;
+			cursor: pointer;
+			transition: border-bottom 0.5s;
+		}
+		section#ingredients .content:hover{
+			border-bottom: 5px solid #FFBF00;
+		}
+
+		/*여섯번째 컨텐츠 #more*/
+		section#more span{
+			font-size: 1.5em;
+			font-weight: 500;
+			position: absolute;
+		}
+		section#more span+span{
+			width: 80%;
+			display: block;
+			height: 16px;
+			background-color: #474646;
+			position: absolute;
+			left:20%;
+			top:10px;
+		}
+		section#more .content{
+			width: 32%;
+			float: left;
+			height: 260px;
+			position: relative;
+			top:100px;
+			margin-right: 2%;
+		}
+		section#more .content:nth-of-type(3){
+			margin-right: 0;
+		}
+		section#more .content:nth-child(2){
+			background: url(img/more_hansot.jpg) no-repeat center;
+			background-size: cover;
+		}
+		section#more .content:nth-child(3){
+			background: url(img/more_event.jpg) no-repeat center;
+			background-size: cover;
+		}
+		section#more .content:nth-child(4){
+			background: url(img/more_news.jpg) no-repeat center;
+			background-size: cover;
+		}
+		section#more div{
+			width: 100%;
+			height: 50px;
+			background-color: #525252;
+			position: absolute;
+			bottom: 0;
+			color:white;
+			line-height: 50px;
+			cursor: pointer;
+		}
+		section#more div p{
+			padding-left: 20px;
+			font-weight: 700;
+		}
+		section#more div p:hover{
+			color: #FFB900
+		}
+		section#more div p::after{
+			content: "";
+			width: 6px;
+			height: 10px;
+			position: absolute;
+			right: 10px;
+			background: url(img/icon_cont_more.png);
+			top:20px;
+			background-size: 12px 10px;
+		}
+		section#more div:hover p::after{
+			background-position: -6px;
+		} 
+		
+		/*마지막 footer영역*/
+		#footer{
+			width: 100%;
+			/*height: 250px;*/
+			background-color: #FFC900;
+			text-align: center;
+			padding:50px;
+		}
+		#footer li{
+			float: left;
+		}
+		#footer ul.info li::after{
+			content: ' ';
+			display: inline-block;
+			width: 2px;
+			height: 14px;
+			background-color: #555454;
+			margin: 0 15px;
+		}
+		#footer ul.info li:last-child::after{
+			content: none;
+		}
+		#footer ul.info{
+			width: 640px;
+			position: absolute;
+			left:50%;
+			margin-left: -320px;
+		}
+		#footer p{
+			margin: 10px;
+		}
+		#footer p:nth-of-type(1){
+			margin-top: 60px;
+		}
+		#footer p:nth-of-type(3){
+			margin-top: 30px;
+		}
+		#footer .sns a{
+			display: inline-block;
+			width: 40px;
+			height: 40px;
+			background: url(img/icon_sns_02.png) no-repeat;
+			background-size: 80px;
+			text-indent: -9999px;
+			margin: 10px;
+		}
+		#footer .sns a:nth-child(2){
+			background-position: -40px;
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		/*반응형 미디어 쿼리*/
+		/*1)디바이스 장치가 최소 1200일 때 :모니터 크기가 1200px이상일 때=>laptop 컴퓨터용*/
+		@media screen and (min-width: 1200px){
+			nav.mobileGnb{
+				display: none;
+			}
+		}
+		/*2)laptop이하일 때*/
+		@media screen and (max-width: 1199px){
+			body{
+				width: 100%;
+				height: 100%;
+			}
+			body.hidden{
+				overflow: hidden;
+			}
+			/*모바일 네비게이션*/
+			nav.desktopGnb1, nav.desktopGnb2{
+				display: none !important;
+			}
+			nav.mobileGnb{
+				display: block;
+			}
+			nav.mobileGnb ul.mobileMenu{
+				display: none;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				z-index: 999999;
+				background-color: white;
+				top:0;
+				padding-top: 50px;
+			}
+			nav.mobileGnb a{
+				color: black;
+			}
+			nav.mobileGnb h1{
+				width: 25px;
+				height: 25px;
+				background: url(img/m_h1_logo.png) no-repeat;
+				background-size: contain;
+				text-indent: -9999px;
+				margin: 15px;
+			}
+			nav.mobileGnb ul.mobileMenu li:last-child{
+				position: absolute;
+				right: 10px;
+				top:10px;
+				font-weight: bold;
+			}
+			nav.mobileGnb .hambergerBtn{
+				display: block;
+				position: absolute;
+				z-index: 99999;
+				right:10px;
+				top:10px;
+
+			}
+			nav.mobileGnb .hambergerBtn span{
+				font-size: 2em;
+				font-weight: bold;
+			}
+			nav.mobileGnb ul.mobileMenu li a{
+				line-height: 3.5em;
+				margin-left: 50px;
+				font-weight: bold;
+				text-transform: uppercase;
+			}
+			nav.mobileGnb ul.mobileMenu li:hover a{
+				color:#FEC008;
+			}
+			nav.mobileGnb ul.mobileMenu li:last-child span{
+				font-size: 2em;
+				font-weight: bold;
+				cursor: pointer;
+			}
+
+			/*첫번째 #menu, 두번째 #story*/
+			section#menu, section#story{
+				width: 100%;
+			}
+			section#story{
+				padding-left:40px;
+				padding-right: 40px;
+				box-sizing: border-box;
+			}
+			section#story div.content{
+				width: 48%;
+				box-sizing: border-box;
+			}
+			section#story div.content:nth-child(1){
+				width: 98%;
+				height: 300px;
+				margin-bottom: 15px;
+			}
+
+			/*세번째 컨텐츠 #philosophy*/
+			section#philosophy{
+				top:60px;
+			}
+			section#philosophy div.content{
+				position: absolute;
+				left:0;
+				margin-left: 0
+			}
+
+			/*네번째 컨텐츠 #indgredients*/
+			section#ingredients{
+				padding:60px;
+			}
+			section#ingredients .bg{
+				left:40px;
+			}
+			section#ingredients .content{
+				width: 280px;
+			}
+			section#ingredients .content p.title{
+			font-size: 2em;
+			}
+
+			/*다섯번째 컨텐츠 #more*/
+			section#more{
+				display: none;
+			}
+
+			/*footer영역*/
+			#footer{
+				position: relative;
+				top:60px;
+			}
+
+
+		}
+
+		/*분기점을 3개로 나누는 경우 타블렛 사이즈용*/
+		@media screen and (min-width: 768px) and (max-width: 1199px){
+
+		}
+		/*분기점을 3개로 나누는 경우 모바일 사이즈용*/
+		@media screen and (max-width: 767px){
+			section#story{
+				height: 350px;
+			}
+			section#story  div.content:nth-child(2) p,section#story div.content:nth-child(2) span, section#story  div.content:nth-child(3) p,section#story div.content:nth-child(3) span{
+				position: relative;
+				top:-150px;
+			}
+			section#story div.content span.play_btn+span{
+				top:-160px;
+
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<!-- p#login>span*3>a[href="#"] -->
+		<!-- 로그인 영역 #login -->
+		<p id="login">
+			<span><a href="#"></a><a href="#"></a></span>
+			<span><a href="#">회원가입</a></span>
+			<span><a href="#">로그인</a></span>
+		</p>
+
+		<!-- nav.desktopGnb1>ul>li*7>a[href="#"] -->
+		<!-- 상단의 white navi -->
+		<nav class="desktopGnb1">
+			<ul>
+				<li><a href="index.html"><h1>한솥</h1></a></li>
+				<li><a href="#brand">brand</a></li>
+				<li><a href="#menu">menu</a></li>
+				<li><a href="#story">story</a></li>
+				<li><a href="#philosophy">philosophy</a></li>
+				<li><a href="#ingredients">ingredients</a></li>
+				<li><a href="#more">more</a></li>
+			</ul>
+		</nav>
+		<nav class="desktopGnb2">
+			<ul>
+				<li><a href="index.html"><h1>한솥</h1></a></li>
+				<li class="active"><a href="#brand">brand</a></li>
+				<li><a href="#menu">menu</a></li>
+				<li><a href="#story">story</a></li>
+				<li><a href="#philosophy">philosophy</a></li>
+				<li><a href="#ingredients">ingredients</a></li>
+				<li><a href="#more">more</a></li>
+			</ul>
+		</nav>
+		<!-- 모바일, 타블렛일때의 네비게이션 -->
+		<nav class="mobileGnb">
+			<div class="menuBar">
+				<a href="index.html"><h1>한솥</h1></a>
+				<a href="#" class="hambergerBtn">
+					<span class="material-symbols-outlined">menu</span>
+				</a>
+			</div>
+			<ul class="mobileMenu">
+				<li><a href="#">로그인</a><a href="#">회원가입</a></li>
+				<li><a href="#brand">brand</a></li>
+				<li><a href="#menu">menu</a></li>
+				<li><a href="#story">story</a></li>
+				<li><a href="#philosophy">philosophy</a></li>
+				<li><a href="#ingredients">ingredients</a></li>
+				<li><a href="#more">more</a></li>
+				<li class="close"><span class="material-symbols-outlined" >close</span></li>
+			</ul>
+		</nav>
+
+
+		<!-- 상단 캐로셀 #brand -->
+		<!-- section#brand.carousel>ul.gallery>li*6^div.carousel_btn>ul.btn>li*8 -->
+		<section id="brand" class="carousel">
+			<ul class="gallery">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<div class="carousel_btn">
+				<ul class="btn">
+					<li class="active">1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+					<li>5</li>
+					<li>6</li>
+					<li class="pause"></li>
+					<li class="play"></li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- 두번째 컨텐츠 #menu -->
+		<!-- section#menu>div.content*2>div.img+p+span.play_btn+span -->
+		<section id="menu">
+			<div class="content">
+				<div class="img"></div>
+				<p>가격 이상의 가치가 담긴 다양한 메뉴를 확인해 보세요</p>
+				<span class="play_btn"></span>
+				<span>한솥 메뉴</span>
+			</div>
+			<div class="content">
+				<div class="img"></div>
+				<p>각 지은 한끼가 기다리고 있는 가까운 한솥 매장을 찾아보세요</p>
+				<span class="play_btn"></span>
+				<span>주변점포찾기</span>
+			</div>
+		</section>
+
+		<!-- 세번째 컨텐츠 #story -->
+		<!-- section#story>(div.content>p.title+span)+div.content*2>div.img+p+span.play_btn+span -->
+		<section id="story">
+			<div class="content">
+				<p class="title">가맹점주에게도 든든한 한솥입니다</p>
+				<span>점주님들의 꿈을 실현시켜 드리기 위해 가맹점주와 성공까지 동행하는 한솥! 상담부터 개업까지 모든 희로애락을 함께 합니다.</span>
+			</div>
+			<div class="content">
+				<div class="img"></div>
+				<p>한솥은 언제나 고객과 점주님들의 이익을 먼저 생각합니다</p>
+				<span class="play_btn"></span>
+				<span>why 한솥 가맹점</span>
+			</div>
+			<div class="content">
+				<div class="img"></div>
+				<p>한솥과 함께하는 가맹점주들의 성공 스토리입니다</p>
+				<span class="play_btn"></span>
+				<span>성공수기</span>
+			</div>
+		</section>
+
+		<!-- 네번째 컨텐츠 #philosophy -->
+		<!-- section#philosophy>div.bg+div.content>p+span+div.btn -->
+		<section id="philosophy">
+			<div class="bg"></div>
+			<div class="content">
+				<p>든든한 솥밥을 위해 한솥이 지키고, 키워가는 것들</p>
+				<span>한솥은 '따끈한 도시락으로 지역사회에 공헌한다' 라는 기업이념 아래, 고객 이익을 최우선으로 하며 엄선된 좋은 식재료만 사용하는 대한민국 외식종합기업 시장을 리드하는 글로벌 종합외식기업 입니다.</span>
+				<div class="btn">브랜드 철학</div>
+			</div>
+		</section>
+
+		<!-- 다섯번째 컨텐츠 #ingredients -->
+		<!-- section#ingredients>div.bg+div.content>p.title+span.paragraph+div>span.play_btn+span -->
+		<section id="ingredients">
+			<div class="bg"></div>
+			<div class="content">
+				<p class="title">식재료 앞에서는 <br>한없이 <br>까탈스럽습니다</p>
+				<span class="paragraph">맑고 깨끗한 자연 환경속에서 재배된 식재료가 아니면 한솥이 될 수 없습니다. <br> 모든 식재료는 고객분들이 안심하고 드실 수 있도록 엄격한 기준 아래 선별됩니다.</span>
+				<div>
+					<span class="play_btn"></span>
+					<span>식재료 이야기</span>
+				</div>
+			</div>
+		</section>
+
+		<!-- 여섯번째 컨텐츠 #more -->
+		<!-- section#more>(p>span*2)+div.content*3>div>p -->
+		<section id="more">
+			<p><span>더 많은 이야기</span><span></span></p>
+			<div class="content">
+				<div>
+					<p>한솥의 약속</p>
+				</div>
+			</div>
+			<div class="content">
+				<div>
+					<p>온라인 이벤트</p>
+				</div>
+			</div>
+			<div class="content">
+				<div>
+					<p>한솥 NEWS</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- footer영역 -->
+		<!-- div#footer>ul.info>li*6^br+p*3+div.sns>a*2 -->
+		<div id="footer">
+			<ul class="info">
+				<li>인재채용</li>
+				<li>협력업체등록</li>
+				<li>공지사항</li>
+				<li>고객센터</li>
+				<li>개인정보처리방침</li>
+				<li>이용약관</li>
+			</ul>
+			<br>
+			<p>대표이사 이영덕, 이하림 사업자등록번호 214-81-96569 서울시 강남구 강남대로 318(역삼동) 타워837빌딩 8,9층 T. 02-585-1114 F. 02-598-1116</p>
+			<p>E. webmaster@hsd.co.kr 한솥 도시락 고객센터 02-585-1114 전국창업설명회 02-585-1114 단체주문 1644-3288</p>
+			<p>COPYRIGHT©㈜한솥. ALL RIGHTS RESERVED.</p>
+			<div class="sns">
+				<a href="">인스타그램</a><a href="">페이스북</a>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function(){
+
+			var carousel_btn = $(".carousel_btn li").not(".carousel_btn li:last-child");
+			var carousel_gallery = $(".gallery li");
+
+			carousel_btn.click(function(){
+				carousel_btn.removeClass("active");
+				$(this).addClass("active");
+
+				var current = $(this).index();
+				carousel_gallery.css("left","100%");
+				carousel_gallery.eq(current).animate({"left":0},200);
+				//css("속성명","속성값");
+				//css({"속성명":"속성값","속성명":"속성값"})
+			})
+			
+			var current = 0;
+			carousel_gallery.css("left","100%");		
+			carousel_gallery.eq(current).css("left",0);
+
+			//5초마다 캐로셀 이미지가 동작하도록 설정
+			var clock = setInterval(move, 5000);
+
+			function move(){
+
+				var prev = carousel_gallery.eq(current);
+				prev.css("left",0).animate({"left":"-100%"},200);
+				carousel_btn.removeClass("active");
+				carousel_btn.eq(current+1).addClass("active");
+				current = current+1;
+
+				if(current==6) current=0;
+
+				var next = carousel_gallery.eq(current);
+				next.css("left","100%").animate({"left":0},200);
+				carousel_btn.eq(current).addClass("active");
+			}
+
+			var carousel_pause_btn = $(".carousel_btn li.pause");
+			var carousel_play_btn = $(".carousel_btn li.play");
+
+			carousel_pause_btn.click(function(){
+				$(this).hide();
+				carousel_play_btn.show();
+				clearInterval(clock);
+				carousel_gallery.eq(current).css("left",0);
+				carousel_btn.eq(current).addClass("active");
+			})
+
+			carousel_play_btn.click(function(){
+				$(this).hide();
+				carousel_pause_btn.show();
+				var clock = setInterval(move, 5000);
+			})
+
+			//햄버거 버튼을 클릭시 모바일 메뉴가 보이도록 설정
+			var hambergerBtn = $(".hambergerBtn");
+			var close = $(".close");
+			var mobileGnb = $(".mobileGnb li")
+
+			hambergerBtn.click(function(){
+				$("ul.mobileMenu").show();
+				$("body").addClass("hidden");
+			})
+			close.click(function(){
+				$("ul.mobileMenu").hide();
+				$("body").removeClass("hidden");
+			})
+			mobileGnb.click(function(){
+				$("ul.mobileMenu").hide();
+				$("body").removeClass("hidden");
+			})
+
+
+			//스크롤시 네비 변경하기
+			var desktopGnb1 = $("nav.desktopGnb1")
+			var desktopGnb2 = $("nav.desktopGnb2")
+			desktopGnb2.hide();
+
+			$(window).scroll(function(){
+				var scrollTop = $(window).scrollTop();
+				// alert(scrollTop);
+				if(scrollTop>= 40){
+					desktopGnb1.hide();
+					desktopGnb2.show();
+				}
+				if(scrollTop<=40){
+					desktopGnb1.show();
+					desktopGnb2.hide();
+				}
+			})
+			var desktopGnb2_menu =$("nav.desktopGnb2 li ");
+			desktopGnb2.click(function(){
+				desktopGnb2_menu.removeClass("active");
+				$(this).addClass("active");
+			})
+
+
+		})
+	</script>
+</body>
+</html>

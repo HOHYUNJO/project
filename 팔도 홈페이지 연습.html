@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>팔도</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<link rel="icon" href="img/icon.png">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+	<style>
+		*{margin: 0;
+		padding: 0;}
+		body{
+			overflow-x: hidden;
+		}
+		div#wrapper{
+			width: 100%;
+			font-family: 'Noto Sans KR', sans-serif;
+		}
+		ul li{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+		}
+
+
+				/*첫번째 네비*/
+		nav.Gnb1{
+			position: relative;
+			background-color: white;
+			width: 60%;
+			height: 100px;
+			top: 20px;
+			left: 20%;
+			overflow: hidden;
+			z-index: 9999px;
+			margin-bottom: 20px;
+
+		}
+		nav.Gnb1 li{
+			float: left;
+			width: 14%;
+			height: 100px;
+			box-sizing: border-box;
+			line-height: 100px;
+			text-align: center;
+			
+		}
+		nav.Gnb1 li a{
+			display: block;
+			width: 100%;
+			height: 100%;	
+			font-weight: bold;
+			color: black;
+			font-size: 20px;
+		}
+		nav.Gnb1 li:hover a{
+			color:#F4C7BE ;
+		}
+		nav.Gnb1 li h1{
+			text-indent: -9999px;
+			background: url(img/ci.png) no-repeat center;
+			background-size: 70%;
+		}
+		nav.Gnb1 li:last-child a:nth-child(1){
+			background: url(img/ico-search.png) no-repeat;
+			text-indent: -9999px;
+			width: 32px;
+			height: 32px;
+			position: relative;
+			top: 30px;
+		}
+		nav.Gnb1 li:last-child a:nth-child(2){
+			background: url(img/ico-shopping.png) no-repeat;
+			text-indent: -9999px;
+			width: 32px;
+			height: 30px;
+			position: relative;
+			left: 40px;
+		}
+
+	
+			/*두번째 비디오*/ 
+		section.video{
+			width: 1920px;
+			height: 1080px;
+			background: url(img/poster_teumsaeramen_24s_20230119.jpg);
+			position: relative;
+			left: 0;
+			top: 0;
+		}
+
+
+			/*세번째 크루셀*/
+		section.main1{
+			margin-top: 100px;
+		} 
+		section.main1 h2.s-tit::before{
+			content: "";
+			display: block;
+			width: 30px;
+			height: 4px;
+			background-color: red;
+			margin: 0 auto;
+			margin-bottom: 10px;
+		}
+		section.main1 h2.s-tit{
+			text-align: center;
+			font-size: 3em;
+			margin-bottom: 10px;
+		}
+		section.main1 span.b-tit{
+			text-align: center;
+			display: block;
+			margin-bottom: 50px;
+			font-size: 15px;
+		}
+		section.carousel{
+			width: 100%;
+			height: 280px;
+			position: relative;
+		}
+		section.carousel ul.gallery li{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left:100%;
+			top:0;
+			cursor: pointer;
+		}
+		section.carousel ul.gallery li a{
+			display: block;
+			width: 100%;
+			height: 100%;
+			text-indent: -9999px;
+		}
+		section.carousel ul.gallery li:nth-child(1){
+			background: url(img/085820_mainbanner.jpg) no-repeat center;
+			left: 0;
+		}
+		section.carousel ul.gallery li:nth-child(2){
+			background: url(img/160048_mainbanner.jpg) no-repeat center;
+		}
+		section.carousel ul.gallery li:nth-child(3){
+			background: url(img/161752_mainbanner.jpg) no-repeat center; 
+		}
+		section.carousel div.carousel_btn{
+			position: absolute;
+			width: 70%;
+			height: 200px;
+			left: 20%;
+			bottom: 0;
+		}
+		.carousel ul.btn{
+			position: absolute;
+			bottom: 5px;
+			left: 46%;
+			overflow: hidden;
+		}
+		.carousel ul.btn li{
+			width: 20px;
+			height: 20px;
+			float: left;
+			background-color: white;
+			text-indent: -9999px;
+			margin: 0 5px;
+			border-radius: 50%;
+			cursor: pointer;
+		}
+		.carousel ul.btn li.active{
+			background-color: black;
+		}
+
+
+			/*네번째 팔도면스타 그램*/
+		section.main2{
+			background-color: #F2F2F2;
+			margin-top: 100px;
+			padding: 80px;
+
+		}
+		section.main2 h2.s-tit::before{
+			content: "";
+			display: block;
+			width: 30px;
+			height: 4px;
+			background-color: red;
+			margin: 0 auto;
+			margin-bottom: 10px;
+		}
+		section.main2 h2.s-tit{
+			text-align: center;
+			font-size: 3em;
+			margin-bottom: 10px;
+		}
+		section.main2 span.b-tit{
+			text-align: center;
+			display: block;
+			font-size: 15px;
+		}
+		section.main3{
+			position: relative;
+			background-color: #F2F2F2;
+			width: 100%;
+		}
+		section.main3 div{
+			width: 60%;
+			margin: 0 auto;
+		}
+		section.main3 div ul{
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+		section.main3 div ul li{
+			float: left;
+			list-style: none;
+			width: 32%;
+			height: 100%;
+			margin-right: 1%;
+			transition:transform 0.1s;
+		}	
+		section.main3 div ul li span.text:hover {
+			color: orange;
+		}
+
+		section.main3 div ul li span.text{
+			margin-top: 20px;
+			margin-bottom: 20px;
+			text-align: center;
+			display: block;	
+			color: black;
+
+		}
+		section.main3 div ul li:hover{
+			transform: scale(1.05);
+		}
+		section.main3 div.more{
+			width: 250px;
+			height: 100px;
+			line-height: 100px;
+			text-align: center;
+			border-radius: 48%;
+			background-color: white;
+			transition: 0.5s;
+			margin-top: 20px;
+			position: relative;
+		}
+		section.main3 div.more:hover{
+			border: solid 1px orange;
+		}
+		section.main3 div.more span a{
+			color: black;
+		}
+		section.main3 div.more span.arrow{
+			display: block;
+			width: 24px;
+			height: 14px;
+			position: absolute;
+			left: 200px;
+			top: 43px;
+			background: url(img/ico-arr-more.png);
+		}
+
+				
+				/*다섯번째 풋터*/
+
+		footer .link{
+			position: relative;
+			left: 370px;
+			top: 30px;
+			overflow: hidden;
+			margin-bottom: 30px;
+		}
+		footer .link li{
+			float: left;
+			margin-right: 20px;
+			font-size: 18px;
+		}
+		footer .link li a{
+			color: black;
+		}
+		footer .info{
+			position: relative;
+			left: 370px;
+			top: 30px;
+			overflow: hidden;
+			margin-bottom: 10px;
+		}
+		footer .info li{
+			float: left;
+			margin-right: 20px;
+			font-size: 18px;
+		}
+		footer .add{
+			position: relative;
+			left: 370px;
+			top: 30px;
+			overflow: hidden;
+			margin-bottom: 10px;
+		}
+		footer .add li{
+			float: left;
+			margin-right: 20px;
+			font-size: 18px;
+		}
+		footer .copyright{
+			position: relative;
+			left: 370px;
+			top: 30px;
+			overflow: hidden;
+		}
+		footer .copyright li{
+			float: left;
+			margin-right: 20px;
+			font-size: 18px;
+		}
+		footer .sns{
+			position: relative;
+			left: 1200px;
+			bottom: 30px;
+		}
+		footer .sns li{
+			float: left;
+			background: url(img/ico-sp-sns.png) no-repeat;
+			width: 400px;
+			height: 50px;
+		}
+		footer .sns li a{
+			height: 10%;
+			width: 100%;
+			display: block;
+		}
+
+
+			/*반응형 웹*/
+
+		@media screen and (min-width: 1200px){
+			nav.Gnb2{
+				display: none;	
+			}
+		}
+
+
+		@media screen and (max-width: 1199px){
+
+				/*첫번째 네비*/
+			nav.Gnb1{
+				display: none;
+			}
+			nav.Gnb2 ul li h1{
+				background: url(img/ci.png) no-repeat center;
+				text-indent: -9999px;
+				position: relative;
+				left: 38%;
+				width: 135px;
+				height: 62px;
+			}
+			nav.Gnb2 ul li:nth-child(2){
+				width: 32px;
+				height: 32px;
+				background: url(img/ico-search.png) no-repeat;
+				background-size: 70%;
+				position: relative;
+				text-indent: -9999px;
+				left: 82%;
+				top: -40px;
+			}
+			nav.Gnb2 ul li:nth-child(3){
+				width: 32px;
+				height: 30px;
+				background: url(img/ico-shopping.png) no-repeat;
+				background-size: 70%;
+				position: relative;
+				text-indent: -9999px;
+				left: 90%;
+				top: -70px;
+			}
+			nav.Gnb2 ul li .hambergerBtn .material-symbols-outlined{
+				position: relative;
+				top: -100px;
+				left: 5%;
+				font-size: 2em;
+				color: black;
+			}
+
+				/*두번째 비디오*/ 
+			section.video{
+				width: 100%;
+				height: 300px;
+				background-size: cover;
+				background-position: center;
+
+			}
+
+				/*세번째 크루셀*/
+			section.main2 h2.s-tit{
+				text-align: center;
+				font-size: 2em;
+				margin-bottom: 10px;
+			}
+
+				/*네번째 팔도면스타 그램*/
+			section.main1 h2.s-tit{
+				font-size: 2em;
+			}
+
+			section.main3{
+				width: 100%;
+			}
+			section.main3 div{
+				width: 100%;
+			}
+			section.main3 div ul li{
+				width: 40%;
+				margin-left: 6%;
+				overflow: hidden;
+			}
+			section.main3 div ul li img{
+				width: 200px;
+				height: 200px;
+				float: left;
+				margin-bottom: 20px;
+			}
+			section.main3 div ul li .text{
+				font-size: 14px;
+				font-weight: bold;
+			}
+
+				/*다섯번째 풋터*/
+			footer .link{
+				left: 10%;
+			}
+			footer .link li{
+				font-size: 12px;
+			}
+			footer .info{
+				left: 10%;
+			}
+			footer .info li{
+				font-size: 12px;
+			}
+			footer .add{
+				left: 10%;
+			}
+			footer .add li{
+				font-size: 12px;
+			}
+			footer .copyright{
+				left: 10%;	
+			}
+			footer .copyright li {
+				font-size: 12px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<!-- 첫번째 네비 -->
+		<nav class="Gnb1">
+			<ul>
+				<li><a href="#"><h1>팔도</h1></a></li>
+				<li><a href="#">소개</a></li>
+				<li><a href="#">제품</a></li>
+				<li><a href="#">레시피</a></li>
+				<li><a href="#">홍보</a></li>
+				<li><a href="#">문의</a></li>
+				<li><a href="#">검색</a><a href="#">쇼핑</a></li>
+			</ul>
+		</nav>
+		<nav class="Gnb2">
+			<ul>
+				<li><a href="#"><h1>팔도</h1></a></li>
+				<li><a href="#">검색</a>
+				<li><a href="#">쇼핑</a></li>
+				<li><a href="#" class="hambergerBtn">
+						<span class="material-symbols-outlined">menu</span>
+					</a>
+				</li>
+			</ul>		
+		</nav>
+		<!-- 두번째 비디오 -->
+		<section class="video"></section>
+		<!-- 세번째 카루셀 -->
+		<section class="main1">
+			<h2 class="s-tit">신제품</h2>
+			<span class="b-tit">색다른 맛의 즐거움,궁금함을 참을 수 있겠어?</span>
+		</section>
+		<section class="carousel">
+			<ul class="gallery">
+				<li><a href="https://paldofood.co.kr/product/noodle/87">1</a></li>
+				<li><a href="https://www.paldofood.co.kr/product/noodle/83">1</a></li>
+				<li><a href="https://paldofood.co.kr/product/convenient-food/73">1</a></li>
+			</ul>
+			<ul class="btn">
+				<li class="active">1</li>
+				<li>2</li>
+				<li>3</li>
+			</ul>			
+		</section>
+		<!-- 네번째 팔도면스타 그램 -->
+		<section class="main2">
+			<h2 class="s-tit">팔도면스타 그램</h2>
+			<span class="b-tit">온종일 맛있는 생각뿐,라면은 팔도로 먹어야 제 맛!</span>
+		</section>
+		<section class="main3">
+			<div>
+				<ul>
+					<li>
+						<a href="#">
+							<span class="img"><img src="img/102823_insta-thumb-105.jpg" alt=""></span>
+							<span class="text">#우주대플렉스_팔도비빔장저칼로리_체험단 모집</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/p/CpeBMXJvGfa/">
+							<span class="img"><img src="img/090658_insta-thumb-104.jpg" alt=""></span>
+							<span class="text">#우주대플렉스_팔도X한돈_먹찍인증샷_이벤트</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/p/CpTtdVuPUmy/">
+							<span class="img"><img src="img/095209_insta-thumb-103.jpg" alt=""></span>
+							<span class="text">#팔도_뿌요_브랜드공모전_안내</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/p/CpMbJEdP-TA/">
+							<span class="img"><img src="img/095151_insta-thumb-102.jpg" alt=""></span>
+							<span class="text">#우주적_팔도시점_이벤트</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/p/CpBqYhRP7ds/">
+							<span class="img"><img src="img/090341_insta-thumb-101.jpg" alt=""></span>
+							<span class="text">#우주대플렉스_뽀로로과일맛젤리쁘띠_체험단모집</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/p/Co_OZO7vv70/">
+							<span class="img"><img src="img/094557_insta-thumb-100.jpg" alt=""></span>
+							<span class="text">#우주초신상_팔도비빔장_저칼로리</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/p/Co3akTKPDc1/">
+							<span class="img"><img src="img/093409_insta-thumb-99.jpg" alt=""></span>
+							<span class="text">#Air_Super_Drop</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/p/ColU0meP-a5/">
+							<span class="img"><img src="img/100529_insta-thumb-98.jpg" alt=""></span>
+							<span class="text">#우주에서_먹히는_발렌타인데이_고백법</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/p/CoeFXkNPZ0Y/">
+							<span class="img"><img src="img/092819_insta-thumb-97.jpg" alt=""></span>
+							<span class="text">#오늘육수_채소가_가진_능력</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/p/CobCzIJvrl1/">
+							<span class="img"><img src="img/092712_insta-thumb-96.jpg" alt=""></span>
+							<span class="text">#우주에선_비락식혜_비락수정과</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/p/CoLnkGYv7fK/">
+							<span class="img"><img src="img/110839_insta-thumb-95.jpg" alt=""></span>
+							<span class="text">#지구력_상승_이벤트</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span class="img"><img src="img/112307_insta-thumb-94.jpg" alt=""></span>
+							<span class="text">#우주초신상_틈새소스_틈새핫소스</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="more">
+				<span><a href="https://www.instagram.com/paldofood/">면스타그램 더보기</a></span>
+				<span class="arrow"></span>
+			</div>
+		</section>
+		<!-- 다섯번째 풋터 -->
+		<footer>
+			<ul class="link">
+				<li><a href="#"><strong>개인정보처리방침 </strong>|</a></li>
+				<li><a href="#">오시는길 |</a></li>
+				<li><a href="#">고객의 소리</a></li>
+			</ul>
+			<ul class="info">
+				<li>
+					<span>(주)팔도</span>
+					<span>대표이사: 고정환  |</span>
+					<span>사업자등록번호: 308-81-03161</span>
+				</li>
+			</ul>
+			<ul class="add">	
+				<li>
+					<span>주소: 서울특별시 서초구 강남대로577  |</span>
+					<span>전화: 1577-8593  |</span>
+					<span>팩스: 02-3449-6657</span>
+				</li>
+			</ul>
+			<ul class="copyright">	
+				<li>
+					<span>Copyrightⓒ<strong>PALDO Co.,Ltd.</strong>All rights reserved</span>
+				</li>
+			</ul>	
+			<ul class="sns">
+				<li>
+					<a href="https://www.instagram.com/paldofood/"></a>
+					<a href="https://m.facebook.com/paldofood"></a>
+					<a href="https://m.blog.naver.com/paldoblog"></a>
+					<a href="https://www.instagram.com/paldofood/"></a>
+					<a href="https://www.instagram.com/paldofood/"></a>
+					<a href="https://www.instagram.com/paldofood/"></a>
+					<a href="https://www.youtube.com/user/paldofood6295"></a>
+					<a href="https://www.tiktok.com/@paldo_official?_d=secCgYIASAHKAESMgowrrDwrn9gw04F3jWkK3mBPjzzKUkbvsNeNz%2FyAD%2BuONkEMZOUWBKFCBjTIdO2mqJxGgA%3D&language=ko&sec_uid=MS4wLjABAAAAX9NrVd13N5cHA8B82BRQiyHgMMqkkAwPis9GJfGEKr9H9T6pV-DZaS0jjHz2JD-o&sec_user_id=MS4wLjABAAAAp0alSuOEVxrnPpxr7sC6jmSqTdVhy3xsxgebNF9COwJrM_SqXfvs_axClLEFtSDk&share_app_id=1180&share_author_id=6855198829613253633&share_link_id=24a321b2-19c3-4003-8420-216aaa316880&timestamp=1625527430&u_code=d7f5hcd3a1af1d&user_id=6720405959221675009&utm_campaign=client_share&utm_medium=android&utm_source=copy&_r=1"></a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+	<!-- 카루셀 스크립트 -->
+	<script>
+		$(function(){
+			var carousel_img = $(".gallery li")
+			var carousel_btn = $(".btn li")
+			var current = 0;
+			carousel_btn.click(function(){
+				var tg = $(this);
+				var i = tg.index();
+			
+				carousel_btn.removeClass("active")
+				carousel_btn.eq(i).addClass("active");
+
+				if(current == i) return 0;
+				move(i);
+
+				function move(i){
+					var currentImg = carousel_img.eq(current);
+					var nextImg = carousel_img.eq(i);
+					currentImg.css("left",0).animate({"left":"-100%"}); 
+					nextImg.css("left","100%").animate({"left":0})
+					current = i;
+				}
+			})
+		})
+	</script>
+</body>
+</html>
